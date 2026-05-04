@@ -1,0 +1,32 @@
+---
+import "../styles/global.css";
+const { title, description } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Brand Context Protocol</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <a href="/">[ Home ]</a>
+        <a href="/spec/v0.1">[ Spec ]</a>
+        <a href="/start">[ Start ]</a>
+        <a href="/schema">[ Schema ]</a>
+    </nav>
+    <main>
+        <slot />
+    </main>
+    <footer>
+        &copy; 2026 &middot; BCP is an open standard maintained by Encoded Brands and the community.
+        <br/><br/>
+        <a href="https://github.com/Brand-Context-Protocol/spec" style="color:inherit">Source on GitHub</a> &middot; <a href="https://encodedbrands.com" style="color:inherit">encodedbrands.com</a>
+    </footer>
+</body>
+</html>
