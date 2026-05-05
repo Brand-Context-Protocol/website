@@ -14,5 +14,6 @@ Publish a  file at  on your domain. Agents, platforms, and tools read it automat
 
 ## Get Started
 - **Read the specification:** [BCP v0.1 Spec](/spec/v0.1)
-- **Create yours now:** [LLM Authoring Prompt](/start)
+- **Author your first BCP:** [Start at encodedbrands.com](https://encodedbrands.com/start)
 - **View the JSON Schema:** [Schema Reference](/schema)
+- **Browse the source:** [GitHub](https://github.com/Brand-Context-Protocol/spec)
