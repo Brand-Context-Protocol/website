@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title> | Brand Context Protocol</title><meta name="description"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet"><style>:root{--paper: #FAFAF6;--ink: #0F0F0D;--ink-2: #2B2923;--ink-3: #6B6560;--rule: rgba(15,15,13,.1);--accent: #B33D2A;--sans: "Space Grotesk", system-ui, sans-serif;--serif: "Instrument Serif", Georgia, serif;--mono: "IBM Plex Mono", monospace}body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;max-width:1000px;margin:0 auto;padding:clamp(20px,5vw,60px);-webkit-font-smoothing:antialiased}h1,h2,h3{font-family:var(--sans);font-weight:500;letter-spacing:-.03em;margin-top:1.5em}h1{font-size:clamp(36px,6vw,72px);line-height:1;margin-bottom:.5em;margin-top:0}h2{font-size:32px;border-top:1px solid var(--rule);padding-top:32px}h1 em,h2 em,p em,li em{font-family:var(--serif);font-style:italic;color:var(--accent)}a{color:var(--accent);text-decoration:underline;text-underline-offset:4px}a:hover{color:var(--ink)}nav{border-bottom:1px solid var(--rule);padding-bottom:20px;margin-bottom:60px;display:flex;gap:24px;font-family:var(--mono);font-size:13px}nav a{color:var(--ink-2);text-decoration:none}nav a:hover{color:var(--accent)}pre{background:var(--ink);color:#e9e2d3;padding:24px;border-left:4px solid var(--accent);overflow-x:auto;font-family:var(--mono);font-size:13px;margin:32px 0;white-space:pre}code{font-family:var(--mono);background:#0f0f0d0d;padding:2px 5px;font-size:.9em;border-radius:2px}pre code{background:transparent;padding:0;color:inherit}ul,ol{margin:24px 0;padding-left:24px}li{margin-bottom:12px}blockquote{border-left:2px solid var(--accent);margin:32px 0;padding:10px 24px;font-style:italic;color:var(--ink-2);font-size:1.1em}table{width:100%;border-collapse:collapse;margin:32px 0;font-size:15px}th{text-align:left;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;padding:12px;border-bottom:1px solid var(--ink)}td{padding:12px;border-bottom:1px solid var(--rule);vertical-align:top}footer{margin-top:120px;padding:40px 0;border-top:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.1em}
+</style></head> <body> <nav> <a href="/">[ Home ]</a> <a href="/spec/v0.1">[ Spec ]</a> <a href="/schema">[ Schema ]</a> <a href="https://github.com/Brand-Context-Protocol/spec">[ GitHub ]</a> </nav> <main> <p><a href="https://github.com/Brand-Context-Protocol/spec/issues/new" style="display:block; margin-bottom: 40px; font-family:var(--mono); font-size: 13px;">✎ Propose a change</a></p>
+<h1 id="brand-context-protocol-bcp--specification">Brand Context Protocol (BCP) — Specification</h1>
+<p><strong>Version:</strong> 0.1
+<strong>Status:</strong> Draft
+<strong>Date:</strong> 2026-04-18
+<strong>License:</strong> CC BY 4.0</p>
+<h2 id="abstract">Abstract</h2>
+<p>The Brand Context Protocol (BCP) is an open specification for publishing machine-readable brand identity as a hierarchical set of markdown files at a well-known location on a brand’s domain. BCP allows any agent in the stack — internal brand agents, vendor platforms, and third-party consumer agents — to read, reason over, and act on a brand’s strategy, voice, boundaries, claims, and representation preferences. The protocol is designed to be authored once, consumed everywhere, and to evolve as the brand evolves. This document specifies file format, discovery, resolution, versioning, taxonomy alignment, and consumption patterns for v0.1.</p>
+<h2 id="change-log">Change log</h2>
+<ul>
+<li><strong>2026-04-18 — v0.1 initial draft.</strong> Full specification across 16 sections plus appendices. Preserves hierarchical file architecture, CC BY 4.0 + MIT dual-license, IAB Content Taxonomy 3.0 + GARM Brand Safety Framework alignment, three-ring distribution model.</li>
+</ul>
+<hr>
+<h2 id="1-introduction">1. Introduction</h2>
+<h3 id="11-the-problem-bcp-solves">1.1 The problem BCP solves</h3>
+<p>In the 12 to 36 months following the publication of this specification, a significant share of marketing work will be performed by AI agents rather than humans. Internal brand agents will draft copy, generate creative, and make media-buying decisions. Vendor platforms — brand-safety systems, creative-generation tools, ad networks, content platforms — will operate increasingly through autonomous agents that make decisions on a brand’s behalf. Third-party consumer agents — conversational shopping assistants, recommendation engines, retrieval systems embedded in general-purpose chat — will describe, compare, and contextualize brands in response to consumer queries.</p>
+<p>Each of these agents needs access to the brand’s intent: what the brand is, what it values, what it claims, what it will and will not say, how it wishes to be represented, and how it should behave at the edges of judgment. Today, this information is captured (when at all) in brand decks, PDFs, Notion pages, and the memories of senior brand team members. None of these are machine-readable. None persist across agent sessions. None are portable across the dozens of systems that need them.</p>
+<p>Without a shared source of truth, every agent must reconstruct brand intent from partial signals: scraped web content, account-representative interviews, example creative, implicit patterns in past work. The result is drift — agents produce output that is technically competent but tonally generic, boundary-blind, and inconsistent across surfaces. Brands pay for this drift in lost distinctiveness, wasted media, and reputational risk.</p>
+<p>BCP solves this problem by defining a standard file format, location, and resolution model for machine-readable brand context. A brand authors its BCP once. Every agent that needs brand context reads the same files. When the brand evolves, the files are updated and all consuming agents see the update on their next resolution cycle.</p>
+<h3 id="12-what-bcp-is-and-is-not">1.2 What BCP is and is not</h3>
+<p>BCP <strong>is</strong>:</p>
+<ul>
+<li>A specification for the structure, location, and format of machine-readable brand context</li>
+<li>A hierarchical file tree: a root <code>brand.md</code> and daughter files for specific dimensions of brand identity</li>
+<li>A well-known URI convention published at <code>/.well-known/brand.md</code> on the brand’s domain</li>
+<li>A format designed for consumption by AI agents while remaining human-readable and human-authorable</li>
+<li>An open standard, published under CC BY 4.0 for the specification and MIT for associated reference code</li>
+</ul>
+<p>BCP <strong>is not</strong>:</p>
+<ul>
+<li>A software product, platform, SaaS tool, or closed system</li>
+<li>A replacement for human brand strategy, brand guidelines, or creative judgment</li>
+<li>A guarantee that any given agent will consume or act on the published files; adoption is voluntary and grows with the standard’s utility</li>
+<li>A specification of the agent systems that consume BCP; it describes what brands publish, not how consumers implement</li>
+<li>A content management system; brands maintain their BCP files in a Git repository of their own choosing</li>
+</ul>
+<h3 id="13-relationship-to-prior-art">1.3 Relationship to prior art</h3>
+<p>BCP draws architectural inspiration from several existing standards:</p>
+<ul>
+<li><strong>AGENTS.md</strong>: a convention for placing agent-readable instructions in a well-known location in a software repository. BCP is the brand-identity analog — agent-readable context in a well-known location on a domain.</li>
+<li><strong>Model Context Protocol (MCP)</strong>: a protocol for exposing tools, resources, and context to agents through a standardized interface. BCP is complementary: the file format is the data layer, MCP is one of several consumption layers.</li>
+<li><strong>robots.txt (RFC 9309)</strong> and <strong>sitemap.xml</strong>: well-known conventions for publishing crawler-readable instructions at predictable paths on a domain. BCP follows the same well-known URI pattern (RFC 8615).</li>
+<li><strong>schema.org</strong> and <strong>JSON-LD</strong>: vocabularies for structured data on the web. BCP differs in being markdown-primary for authorability while allowing JSON-LD compatibility through structured frontmatter.</li>
+<li><strong>OpenAPI</strong>: a specification for describing HTTP APIs in a machine-readable format. BCP follows the pattern of a human-authorable document that generates machine-parseable output through consistent structure.</li>
+<li><strong>IAB Content Taxonomy 3.0</strong> and <strong>GARM Brand Safety Floor + Suitability Framework</strong>: industry-standard taxonomies for content categorization and brand safety.</li>
+</ul>
+<h3 id="14-how-to-read-this-document">1.4 How to read this document</h3>
+<p>This specification uses normative language per RFC 2119. The keywords <strong>MUST</strong>, <strong>MUST NOT</strong>, <strong>REQUIRED</strong>, <strong>SHALL</strong>, <strong>SHALL NOT</strong>, <strong>SHOULD</strong>, <strong>SHOULD NOT</strong>, <strong>RECOMMENDED</strong>, <strong>MAY</strong>, and <strong>OPTIONAL</strong> are to be interpreted as described in that RFC.</p>
+<hr>
+<h2 id="2-terminology">2. Terminology</h2>
+<p><strong>BCP</strong>: Brand Context Protocol. The specification defined in this document, and by extension a file tree conforming to it.</p>
+<p><strong>Brand</strong>: The entity whose identity, voice, boundaries, and claims are being specified.</p>
+<p><strong>Producer</strong>: A brand or its agents publishing a BCP file tree at a well-known URI.</p>
+<p><strong>Consumer</strong>: An agent, platform, tool, or human reading BCP files to obtain brand context.</p>
+<p><strong>Root file</strong>: The file located at <code>/.well-known/brand.md</code> on the brand’s domain.</p>
+<p><strong>Daughter file</strong>: A file referenced by the root that contains a specific dimension of brand context.</p>
+<p><strong>File tree</strong>: The complete hierarchical set of BCP files for a given brand.</p>
+<p><strong>Registry</strong>: The <code>daughter_files</code> section in the root file declaring which daughter files exist.</p>
+<p><strong>Ring</strong>: One of three distribution layers — file-based (Ring 1), CLI-based (Ring 2), or MCP-based (Ring 3).</p>
+<p><strong>Lazy resolution</strong>: Loading only the daughter files required for a specific task.</p>
+<p><strong>Extension</strong>: A namespaced field or section containing brand-specific or vendor-specific data not defined by the core spec.</p>
+<p><strong>Locale</strong>: An IETF BCP 47 language tag.</p>
+<p><strong>tree_version</strong>: The brand’s own semver version number for its published BCP tree.</p>
+<p><strong>bcp_version</strong>: The version of this specification to which a BCP tree conforms.</p>
+<hr>
+<h2 id="3-architecture-overview">3. Architecture overview</h2>
+<h3 id="31-the-three-ring-distribution-model">3.1 The three-ring distribution model</h3>
+<p>BCP content is made available through three rings, in order of decreasing ubiquity and increasing dynamism.</p>
+<p><strong>Ring 1 — File-based.</strong> The baseline. BCP files served as static markdown at canonical well-known URIs on the brand’s domain. Any HTTP client can fetch them. Requires no infrastructure beyond standard web hosting.</p>
+<p><strong>Ring 2 — CLI-based.</strong> A reference command-line tool and compatible third-party tools provide programmatic access for authoring, validation, inspection, and one-shot agent consumption.</p>
+<p><strong>Ring 3 — MCP-based.</strong> An MCP server exposes BCP content as tools agents can invoke within a session, supporting session-persistent context, dynamic resolution, authenticated private BCPs, and tool-native agent integration.</p>
+<p>All three rings consume the same underlying source of truth: the BCP file tree. Producers <strong>MAY</strong> publish through any combination of rings; Ring 1 is <strong>REQUIRED</strong> for conformance.</p>
+<h3 id="32-consumption-patterns">3.2 Consumption patterns</h3>
+<p><strong>One-shot fetch.</strong> An agent retrieves a single file via HTTP or filesystem read.</p>
+<p><strong>Selective fetch.</strong> An agent retrieves the root, parses the registry, and fetches only the daughters needed for its task. Most common pattern.</p>
+<p><strong>Full-tree load.</strong> An agent retrieves the root and all declared daughters.</p>
+<p><strong>Session subscription.</strong> An agent connects to a Ring 3 MCP server and receives BCP content as tool responses throughout a session.</p>
+<p><strong>Dynamic query.</strong> An agent invokes a Ring 3 MCP tool that returns BCP content computed or filtered based on request context.</p>
+<h3 id="33-the-hierarchical-file-model">3.3 The hierarchical file model</h3>
+<p>A BCP is not a single file. It is a tree whose root contains core identity and whose daughters contain specific dimensions. The hierarchy exists because concerns are separable (different consumers need different subsets), ownership is separable (legal owns claims, marketing owns voice), and evolution is separable (campaign files turn over seasonally, voice evolves annually, values rarely change).</p>
+<hr>
+<h2 id="4-file-format">4. File format</h2>
+<h3 id="41-markdown-with-yaml-frontmatter">4.1 Markdown with YAML frontmatter</h3>
+<p>A BCP file <strong>MUST</strong> be valid UTF-8 encoded text conforming to CommonMark. Each file <strong>MUST</strong> begin with a YAML frontmatter block delimited by <code>---</code>.</p>
+<h3 id="42-fenced-yaml-blocks-for-structured-fields">4.2 Fenced YAML blocks for structured fields</h3>
+<p>Fields intended for programmatic consumption <strong>SHOULD</strong> be placed in fenced YAML code blocks within the markdown body.</p>
+<h3 id="43-prose-for-narrative-fields">4.3 Prose for narrative fields</h3>
+<p>Fields intended for human reading, voice-matched paraphrasing, or nuanced agent interpretation <strong>SHOULD</strong> be written as markdown prose.</p>
+<h3 id="44-character-encoding-and-size">4.4 Character encoding and size</h3>
+<p>Files <strong>MUST</strong> be UTF-8. No BOM. LF line endings preferred. Root file <strong>SHOULD</strong> be under 8 KB. Daughter files <strong>SHOULD</strong> be under 32 KB.</p>
+<h3 id="45-required-frontmatter-fields">4.5 Required frontmatter fields</h3>
+<p>Every BCP file <strong>MUST</strong> include:</p>
+<ul>
+<li><code>bcp_version</code>: string matching <code>^\d+\.\d+$</code></li>
+<li><code>file_type</code>: one of <code>root</code>, <code>voice</code>, <code>visual</code>, <code>values</code>, <code>boundaries</code>, <code>claims</code>, <code>representation</code>, <code>audience</code>, <code>product</code>, <code>campaign</code></li>
+<li><code>last_updated</code>: ISO 8601 date</li>
+</ul>
+<p>The root file <strong>MUST</strong> additionally include:</p>
+<ul>
+<li><code>brand_name</code>: string</li>
+<li><code>tree_version</code>: semver string</li>
+</ul>
+<p>Daughter files <strong>MUST</strong> additionally include:</p>
+<ul>
+<li><code>parent</code>: path of the root, typically <code>/.well-known/brand.md</code></li>
+</ul>
+<h3 id="46-optional-frontmatter-fields">4.6 Optional frontmatter fields</h3>
+<p><code>revision</code> (content hash for ETag), <code>default_locale</code>, <code>supported_locales</code>, <code>category</code>, <code>subcategories</code>, <code>headquarters</code>, <code>markets</code>, <code>founded</code>, <code>website</code>, <code>reviewed_by</code>, <code>daughter_files</code>, <code>tagline</code>. Consumers <strong>MUST</strong> ignore unrecognized frontmatter fields.</p>
+<hr>
+<h2 id="5-publishing-a-bcp">5. Publishing a BCP</h2>
+<h3 id="51-canonical-location">5.1 Canonical location</h3>
+<p>A BCP’s root file <strong>MUST</strong> be published at <code>https://{domain}/.well-known/brand.md</code>. Daughter files <strong>MUST</strong> be published at <code>https://{domain}/.well-known/brand/{filename}.md</code> or subdirectory equivalents.</p>
+<h3 id="52-source-of-truth">5.2 Source of truth</h3>
+<p>Producers <strong>SHOULD</strong> maintain BCP files in a version-controlled repository. The repository’s default branch is the canonical source of truth. The content served at <code>/.well-known/brand.md</code> is the consumed artifact derived from that source.</p>
+<h3 id="53-three-valid-distribution-models">5.3 Three valid distribution models</h3>
+<p><strong>Direct serving.</strong> The producer serves from their own domain through their own infrastructure.</p>
+<p><strong>Fork-the-template.</strong> The producer forks a template repository and serves from their own infrastructure.</p>
+<p><strong>Hosted.</strong> The producer publishes through a third-party hosting provider. All three models produce the same consumable artifact at the same URL pattern.</p>
+<h3 id="54-http-headers">5.4 HTTP headers</h3>
+<p>Servers <strong>SHOULD</strong> set:</p>
+<ul>
+<li><code>Content-Type: text/markdown; charset=utf-8</code></li>
+<li><code>Cache-Control: max-age=86400</code> (default)</li>
+<li><code>ETag</code>: use <code>revision</code> field value if present</li>
+<li><code>Access-Control-Allow-Origin: *</code></li>
+</ul>
+<h3 id="55-discovery">5.5 Discovery</h3>
+<p>Producers <strong>MAY</strong> improve discoverability via <code>sitemap.xml</code>, HTML <code>&#x3C;link rel="alternate"></code>, developer documentation, or registry services.</p>
+<hr>
+<h2 id="6-hierarchical-resolution">6. Hierarchical resolution</h2>
+<h3 id="61-root-declares-daughters">6.1 Root declares daughters</h3>
+<p>The root file <strong>SHOULD</strong> include a <code>daughter_files</code> registry in its frontmatter or as a dedicated YAML block.</p>
+<h3 id="62-canonical-fallback-paths">6.2 Canonical fallback paths</h3>
+<p>If the root omits the registry, consumers <strong>MAY</strong> attempt: <code>/.well-known/brand/voice.md</code>, <code>/values.md</code>, <code>/boundaries.md</code>, <code>/claims.md</code>, <code>/representation.md</code>, <code>/visual.md</code>, <code>/audiences/{segment}.md</code>, <code>/products/{sku}.md</code>, <code>/campaigns/{name}.md</code>.</p>
+<h3 id="63-resolution-order-and-precedence">6.3 Resolution order and precedence</h3>
+<p>Highest to lowest: campaign-specific, product-specific, audience-specific, locale-specific daughter, default daughter, root file.</p>
+<h3 id="64-lazy-resolution-by-task-type">6.4 Lazy resolution by task type</h3>
+<p>Consumers <strong>SHOULD</strong> load only files required for the task. Copy generation: voice + audience. Media buying: boundaries + claims. Creative generation: voice + visual. Consumer-agent representation: representation + root. Brand-safety classification: boundaries + root.</p>
+<h3 id="65-root-size-target">6.5 Root size target</h3>
+<p>Under 3 KB of body text plus frontmatter. Content exceeding this <strong>SHOULD</strong> move to daughter files.</p>
+<hr>
+<h2 id="7-the-file-tree">7. The file tree</h2>
+<h3 id="71-brandmd-root">7.1 <code>brand.md</code> (root)</h3>
+<p>Declares brand identity, core positioning, tagline, and daughter registry. Always loaded. Required: brand name, positioning, daughter registry, all required frontmatter.</p>
+<h3 id="72-voicemd">7.2 <code>voice.md</code></h3>
+<p>How the brand sounds — tone, register, vocabulary preferences, sentence rules, voice shifts across contexts. Recommended sections: voice attributes, register, prefer/avoid vocabulary lists, do/don’t examples. Structured <code>prefer:</code> and <code>avoid:</code> lists alongside prose guidance.</p>
+<h3 id="73-visualmd">7.3 <code>visual.md</code></h3>
+<p>Typography, color, imagery, composition. v0.1 provides minimal structure; full schematization deferred to v0.2.</p>
+<h3 id="74-valuesmd">7.4 <code>values.md</code></h3>
+<p>Brand values with operational specificity for agent judgment calls. Recommended: numbered values with manifestations in practice plus agent resolution priority order.</p>
+<h3 id="75-boundariesmd">7.5 <code>boundaries.md</code></h3>
+<p>What the brand does and does not do. Primary file for brand-safety agents and vendor platforms. Required structured blocks: <code>hard_no</code>, <code>soft_no</code>, <code>brand_safety</code>, optional namespaced <code>extensions</code>.</p>
+<h3 id="76-claimsmd">7.6 <code>claims.md</code></h3>
+<p>Approved marketing claims with supporting evidence. Required structured blocks: <code>approved_at_launch</code>, <code>requires_caveat</code>, <code>forbidden</code>. Agents generating copy <strong>MUST NOT</strong> introduce claims absent from this file.</p>
+<h3 id="77-representationmd">7.7 <code>representation.md</code></h3>
+<p>How third-party consumer agents should describe the brand. Required: <code>preferred_framing</code> prose paragraph (~120 words), structured fields for <code>describe_as</code>, <code>do_not_describe_as</code>, <code>competitive_frame</code>, <code>honest_trade_offs</code>, <code>never_say</code>. Consumers <strong>MUST</strong> treat <code>never_say</code> as binding.</p>
+<h3 id="78-audiencessegmentmd">7.8 <code>audiences/{segment}.md</code></h3>
+<p>Audience-specific voice shifts, preferences, constraints. Frontmatter: <code>audience_id</code> matching filename.</p>
+<h3 id="79-productsskumd">7.9 <code>products/{sku}.md</code></h3>
+<p>Product-specific positioning and claims. v0.1 does not fully standardize; v0.2 priority.</p>
+<h3 id="710-campaignsnamemd">7.10 <code>campaigns/{name}.md</code></h3>
+<p>Campaign-scoped overrides. Recommended frontmatter: <code>campaign_id</code>, <code>starts_at</code>, <code>ends_at</code>. Sunset semantics deferred to v0.2.</p>
+<hr>
+<h2 id="8-versioning">8. Versioning</h2>
+<h3 id="81-three-layer-model">8.1 Three-layer model</h3>
+<p><strong><code>bcp_version</code></strong>: spec conformance level, incremented by maintainers.
+<strong><code>tree_version</code></strong>: semver on the brand’s own BCP, incremented by producer.
+<strong><code>last_updated</code></strong>: per-file ISO 8601 date.</p>
+<h3 id="82-semver-rules">8.2 Semver rules</h3>
+<p><strong>Major</strong>: breaking changes (renamed files, removed fields, reversed semantics).
+<strong>Minor</strong>: additive changes (new daughter files, new fields, new enumerated entries).
+<strong>Patch</strong>: corrections without semantic change.</p>
+<h3 id="83-revision-hash">8.3 Revision hash</h3>
+<p>Optional SHA-256 content hash suitable for HTTP ETag.</p>
+<h3 id="84-change-log-conventions">8.4 Change-log conventions</h3>
+<p>Root <strong>SHOULD</strong> include reverse-chronological change log with date, tree_version, description.</p>
+<h3 id="85-breaking-vs-non-breaking">8.5 Breaking vs. non-breaking</h3>
+<p>Removing a daughter, removing a required field, or reversing semantics is breaking. Adding daughters, fields, or enumerated entries is not.</p>
+<h3 id="86-deprecation-policy">8.6 Deprecation policy</h3>
+<p>Deprecate in a minor release; remove in a subsequent major release.</p>
+<hr>
+<h2 id="9-content-taxonomies">9. Content taxonomies</h2>
+<p>BCP aligns its structured adjacency and boundary signals with established industry taxonomies where they exist, to maximize interoperability with consuming systems that already map to those vocabularies.</p>
+<h3 id="91-current-reference-alignments-v01">9.1 Current reference alignments (v0.1)</h3>
+<p>v0.1 names two reference alignments for the <code>boundaries.md</code> adjacency fields:</p>
+<ul>
+<li><strong>IAB Content Taxonomy 3.0</strong> for content category structure. Producers <strong>SHOULD</strong> use IAB 3.0 category labels in <code>adjacency_acceptable</code> and <code>adjacency_unsuitable</code> where direct mappings exist.</li>
+<li><strong>GARM Brand Safety Floor + Suitability Framework</strong> for suitability tiers (Floor, High, Medium, Low risk). <code>adjacency_unsuitable</code> aligns with GARM Floor; contextual fields <strong>SHOULD</strong> use GARM tiers where applicable.</li>
+</ul>
+<p>Where the two diverge, follow GARM for suitability tier assignment and IAB for category structure.</p>
+<h3 id="92-extensions-block">9.2 Extensions block</h3>
+<p>Brand-specific or vendor-specific fields not covered by a named taxonomy <strong>MUST</strong> be placed under a namespaced <code>extensions:</code> block. Consumer implementations <strong>MUST</strong> ignore extension fields they do not recognize.</p>
+<h3 id="93-taxonomies-for-other-surfaces-v02-and-beyond">9.3 Taxonomies for other surfaces (v0.2 and beyond)</h3>
+<p>v0.1 names reference alignments only for vendor-platform brand-safety signals. Future versions will add reference alignments for other consumption surfaces: creative-generation constraints (typography, imagery, composition), consumer-agent representation fidelity, and agentic-commerce surfaces. Producers with requirements in those domains <strong>MAY</strong> use the <code>extensions:</code> block in v0.1 and track the namespace for promotion to named alignment in v0.2+.</p>
+<h3 id="94-known-gaps">9.4 Known gaps</h3>
+<p>Emerging content types that neither IAB 3.0 nor GARM fully address, edge cases in political content, and vendor-proprietary rule sets that route around taxonomy gaps are candidate additions to future versions. Producers encountering gaps <strong>SHOULD</strong> document them in the <code>extensions:</code> block and <strong>SHOULD</strong> file an issue against this specification.</p>
+<hr>
+<h2 id="10-representation">10. Representation</h2>
+<h3 id="101-preferred-framing-paragraph">10.1 Preferred framing paragraph</h3>
+<p><code>representation.md</code> <strong>MUST</strong> contain a <code>## Preferred framing</code> section whose body is a prose paragraph of approximately 120 words or less. Consumer agents <strong>SHOULD</strong> paraphrase this paragraph rather than quote verbatim.</p>
+<h3 id="102-structured-fields">10.2 Structured fields</h3>
+<p><code>describe_as</code>, <code>do_not_describe_as</code>, <code>competitive_frame</code>, <code>honest_trade_offs</code>, <code>never_say</code>. Consumers <strong>MUST</strong> treat <code>never_say</code> as binding.</p>
+<h3 id="103-consumer-agent-integration">10.3 Consumer agent integration</h3>
+<p>Consumer agents describing a brand <strong>SHOULD</strong> load <code>representation.md</code>, paraphrase <code>preferred_framing</code> for open queries, respect <code>describe_as</code>/<code>do_not_describe_as</code> for categorical queries, honor <code>never_say</code> absolutely, surface <code>honest_trade_offs</code> when relevant, draw on <code>competitive_frame</code> for comparisons.</p>
+<h3 id="104-conflict-resolution">10.4 Conflict resolution</h3>
+<p>When preferred framing contradicts observable facts, consumer agents <strong>MUST</strong> prioritize observable truth and <strong>SHOULD</strong> surface conflicts to the user.</p>
+<hr>
+<h2 id="11-localization">11. Localization</h2>
+<h3 id="111-parallel-subtrees">11.1 Parallel subtrees</h3>
+<p>Localized content at <code>/.well-known/brand/{locale}/{filename}.md</code>, where <code>{locale}</code> is IETF BCP 47.</p>
+<h3 id="112-inheritance">11.2 Inheritance</h3>
+<p>Localized files <strong>MAY</strong> be partial. Fields absent fall back to default-locale file.</p>
+<h3 id="113-locale-declaration">11.3 Locale declaration</h3>
+<p>Root <strong>SHOULD</strong> declare <code>default_locale</code> and <code>supported_locales</code>.</p>
+<h3 id="114-bcp-47-compliance">11.4 BCP 47 compliance</h3>
+<p>Locale codes <strong>MUST</strong> conform to IETF BCP 47. Consumers <strong>MUST NOT</strong> accept non-compliant strings.</p>
+<hr>
+<h2 id="12-privacy-access-control-and-authentication">12. Privacy, access control, and authentication</h2>
+<h3 id="121-public-vs-private-bcps">12.1 Public vs. private BCPs</h3>
+<p>BCPs at <code>/.well-known/brand.md</code> are public by default. Producers <strong>MUST NOT</strong> include commercially sensitive or privileged content in public files.</p>
+<h3 id="122-mcp-served-private-bcps-v02-preview">12.2 MCP-served private BCPs (v0.2 preview)</h3>
+<p>Future versions define authenticated access patterns. v0.1 producers <strong>MAY</strong> serve private content via Ring 3 MCP server with auth at the MCP layer.</p>
+<h3 id="123-fields-never-to-publish-publicly">12.3 Fields never to publish publicly</h3>
+<p>No credentials, commercial terms, unannounced plans, personal information, or content whose disclosure would be a material breach.</p>
+<h3 id="124-signed-bcps-v02-preview">12.4 Signed BCPs (v0.2 preview)</h3>
+<p>v0.2 will introduce optional cryptographic signing. v0.1 operates under a trust model where domain ownership implies authorship.</p>
+<hr>
+<h2 id="13-consumer-ergonomics">13. Consumer ergonomics</h2>
+<h3 id="131-file-based-consumption">13.1 File-based consumption</h3>
+<p>Direct HTTP fetch. Works for any consumer that can make HTTP requests.</p>
+<h3 id="132-cli-based-consumption">13.2 CLI-based consumption</h3>
+<p>Reference CLI provides <code>init</code>, <code>validate</code>, <code>show</code>, <code>diff</code>, <code>query</code> commands. Agents <strong>MAY</strong> invoke as subprocess.</p>
+<h3 id="133-mcp-based-consumption">13.3 MCP-based consumption</h3>
+<p>Recommended tool names: <code>get_brand_root()</code>, <code>get_voice()</code>, <code>get_boundaries(context?)</code>, <code>check_claim(proposed_claim)</code>, <code>validate_adjacency(content_sample)</code>, <code>query(natural_language_question)</code>.</p>
+<h3 id="134-ring-selection">13.4 Ring selection</h3>
+<p>Ring 1 for one-off queries and stateless consumers. Ring 2 for developer authoring. Ring 3 for long sessions, private BCPs, dynamic resolution.</p>
+<hr>
+<h2 id="14-producer-ergonomics">14. Producer ergonomics</h2>
+<h3 id="141-manual-authoring">14.1 Manual authoring</h3>
+<p>Producers <strong>MAY</strong> author manually in any text editor using this specification as reference.</p>
+<h3 id="142-encoder-assisted-authoring-v02-preview">14.2 Encoder-assisted authoring (v0.2 preview)</h3>
+<p>Future tooling will provide guided authoring with signal extraction and drift detection. Not required for conformance.</p>
+<h3 id="143-living-bcp-monitoring">14.3 Living BCP monitoring</h3>
+<p>Commercial monitoring tools <strong>MAY</strong> subscribe to producer repositories and detect drift. Not required for conformance.</p>
+<h3 id="144-cicd-integration">14.4 CI/CD integration</h3>
+<p>Producers <strong>MAY</strong> validate their BCP in CI via a reference CLI.</p>
+<hr>
+<h2 id="15-security-considerations">15. Security considerations</h2>
+<h3 id="151-trust-model">15.1 Trust model</h3>
+<p>BCP content is claims authored by or on behalf of a brand, not verified truth. Consumer agents <strong>MUST NOT</strong> treat BCP content as authoritative evidence for factual claims about the world.</p>
+<h3 id="152-conflict-with-observable-facts">15.2 Conflict with observable facts</h3>
+<p>Consumer agents <strong>MUST</strong> prioritize observable truth over preferred framing.</p>
+<h3 id="153-denial-of-service-and-caching">15.3 Denial of service and caching</h3>
+<p>Producers <strong>SHOULD</strong> set cache headers. Consumers <strong>SHOULD</strong> respect them.</p>
+<h3 id="154-spoofing-and-domain-verification">15.4 Spoofing and domain verification</h3>
+<p>Consumers <strong>SHOULD</strong> confirm the domain serving the BCP matches the brand expected.</p>
+<h3 id="155-prompt-injection-in-prose-fields">15.5 Prompt injection in prose fields</h3>
+<p>Consumer implementations <strong>SHOULD</strong> treat BCP prose as data, sandbox it, and reject content attempting to override agent-level safety policies. Producers <strong>MUST NOT</strong> author content designed to manipulate consumer-agent behavior outside documented semantics.</p>
+<hr>
+<h2 id="16-conformance">16. Conformance</h2>
+<h3 id="161-producer-conformance">16.1 Producer conformance</h3>
+<p>A BCP is producer-conformant if the root is accessible at the canonical URI, parses as valid markdown with valid YAML frontmatter, all required frontmatter fields are present on root and daughters, the root is served with correct Content-Type, declared daughters are accessible at their declared paths, and <code>bcp_version</code> matches this specification.</p>
+<h3 id="162-consumer-conformance">16.2 Consumer conformance</h3>
+<p>A consumer is conformant if it resolves the root at the canonical URI, respects the registry before canonical fallbacks, honors resolution precedence, treats <code>never_say</code> as binding, does not introduce claims absent from <code>claims.md</code>, and respects brand-safety signals.</p>
+<h3 id="163-conformance-levels">16.3 Conformance levels</h3>
+<p>Future versions will define graduated levels. v0.1 defines a single level.</p>
+<h3 id="164-reference-implementation">16.4 Reference implementation</h3>
+<p>The reference at <code>github.com/Brand-Context-Protocol/spec/examples/acme-corp/.well-known/</code> is producer-conformant by definition.</p>
+<hr>
+<h2 id="17-open-questions-and-future-work">17. Open questions and future work</h2>
+<h3 id="171-signed-bcps-v02">17.1 Signed BCPs (v0.2)</h3>
+<p>Cryptographic signing for authenticity verification.</p>
+<h3 id="172-private-and-authenticated-bcps-v02">17.2 Private and authenticated BCPs (v0.2)</h3>
+<p>Authentication patterns for MCP-served private BCPs.</p>
+<h3 id="173-standardized-products-and-campaigns-v02">17.3 Standardized products and campaigns (v0.2)</h3>
+<p>Full schematization of product and campaign file types, sunset semantics.</p>
+<h3 id="174-sunset-and-temporal-semantics">17.4 Sunset and temporal semantics</h3>
+<p>Normative handling of expired campaigns and time-bounded content.</p>
+<h3 id="175-measurement-layer-standardization">17.5 Measurement layer standardization</h3>
+<p>Companion specification for brand fidelity measurement across surfaces.</p>
+<h3 id="176-governance-transition">17.6 Governance transition</h3>
+<p>Transition from maintainer-led to published governance model before v1.0.</p>
+<h3 id="177-visualmd-schematization">17.7 Visual.md schematization</h3>
+<p>Structured-field specification for typography, color, imagery principles.</p>
+<h3 id="178-multi-brand-organizations">17.8 Multi-brand organizations</h3>
+<p>Handling parent companies with brand portfolios, candidate <code>/brand/{brand-name}/</code> subtree pattern.</p>
+<hr>
+<h2 id="18-appendices">18. Appendices</h2>
+<h3 id="appendix-a-json-schema">Appendix A. JSON Schema</h3>
+<p>Formal JSON Schema at <code>spec/brand-context.schema.json</code>. v0.1 covers required frontmatter and canonical structured-block shapes.</p>
+<h3 id="appendix-b-reference-implementation">Appendix B. Reference implementation</h3>
+<p>Conformant BCP published at <code>github.com/Brand-Context-Protocol/spec/examples/acme-corp/.well-known/</code>.</p>
+<h3 id="appendix-c-comparison-to-adjacent-standards">Appendix C. Comparison to adjacent standards</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Standard</th><th>Relationship to BCP</th></tr></thead><tbody><tr><td>AGENTS.md</td><td>Structural analog; brand-identity equivalent</td></tr><tr><td>MCP</td><td>Ring 3 is implemented via MCP</td></tr><tr><td>robots.txt</td><td>Pattern inspiration for well-known URI</td></tr><tr><td>sitemap.xml</td><td>Pattern inspiration for machine-readable publication</td></tr><tr><td>schema.org</td><td>Complementary; structured blocks can reference</td></tr><tr><td>JSON-LD</td><td>Complementary; structured blocks parseable as JSON-LD-adjacent</td></tr><tr><td>OpenAPI</td><td>Pattern inspiration for human-authorable, machine-parseable</td></tr><tr><td>IAB Content Taxonomy 3.0</td><td>Referenced in Section 9 as one of v0.1’s current reference alignments</td></tr><tr><td>GARM Brand Safety Framework</td><td>Referenced in Section 9 as one of v0.1’s current reference alignments</td></tr></tbody></table>
+<h3 id="appendix-d-glossary">Appendix D. Glossary</h3>
+<p>See Section 2.</p>
+<h3 id="appendix-e-references">Appendix E. References</h3>
+<ul>
+<li>RFC 8615: Well-Known Uniform Resource Identifiers</li>
+<li>RFC 2119: Key words for use in RFCs to Indicate Requirement Levels</li>
+<li>BCP 47: Tags for Identifying Languages</li>
+<li>RFC 9309: Robots Exclusion Protocol</li>
+<li>IAB Tech Lab Content Taxonomy 3.0</li>
+<li>GARM Brand Safety Floor and Suitability Framework</li>
+<li>CommonMark Specification</li>
+<li>YAML 1.2 Specification</li>
+<li>Model Context Protocol</li>
+<li>AGENTS.md Convention</li>
+</ul>
+<hr>
+<p><em>End of specification. Questions, issues, and pull requests: <a href="https://github.com/Brand-Context-Protocol/spec">https://github.com/Brand-Context-Protocol/spec</a></em></p> </main> <footer>
+&copy; 2026 &middot; BCP is an open standard maintained by Encoded Brands and the community.
+<br><br> <a href="https://github.com/Brand-Context-Protocol/spec" style="color:inherit">Source on GitHub</a> &middot; <a href="https://encodedbrands.com" style="color:inherit">encodedbrands.com</a> </footer> </body></html>
