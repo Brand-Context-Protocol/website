@@ -8,12 +8,18 @@ description: The Brand Context Protocol specification.
 
 AI agents generate content about your brand every day. Without a machine-readable source of truth, they guess. BCP gives them the answer.
 
-Publish a  file at  on your domain. Agents, platforms, and tools read it automatically.
+Publish a `brand.md` file at `/.well-known/brand.md` on your domain. Agents, platforms, and tools read it automatically.
+
+BCP is an open protocol published under CC BY 4.0 and maintained by Encoded Brands. Encoded Brands also operates the reference hosted Registry at `registry.brandcontextprotocol.dev`; that runtime signs hosted BCP files, serves them over MCP, and gives teams a managed path when they do not want to run the serving layer themselves.
+
+The protocol and the runtime are separate. You can publish BCP yourself from any static host, or you can use Encoded Brands' hosted Registry.
 
 ---
 
 ## Get Started
 - **Read the specification:** [BCP v0.1 Spec](/spec/v0.1)
 - **Author your first BCP:** [Start at encodedbrands.com](https://encodedbrands.com/start)
+- **Use the public authoring prompt:** [encodedbrands.com/bcp-authoring-prompt.md](https://encodedbrands.com/bcp-authoring-prompt.md)
+- **Verify the reference Registry key:** [registry.brandcontextprotocol.dev](https://registry.brandcontextprotocol.dev/.well-known/registry-public-key)
 - **View the JSON Schema:** [Schema Reference](/schema)
 - **Browse the source:** [GitHub](https://github.com/Brand-Context-Protocol/spec)
