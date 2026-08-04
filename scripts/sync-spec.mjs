@@ -9,7 +9,7 @@
 //
 // On fetch failure the script exits 0 so offline builds still work from committed files.
 
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -42,8 +42,23 @@ async function main() {
     `<a href="https://github.com/Brand-Context-Protocol/spec/issues/new" style="display:block; margin-bottom: 40px; font-family:var(--mono); font-size: 13px;">✎ Propose a change</a>\n\n` +
     spec;
 
-  writeFileSync(join(ROOT, `src/pages/spec/v${version}.md`), specPage);
-  console.log(`[sync-spec] wrote src/pages/spec/v${version}.md`);
+  const versionedPath = join(ROOT, `src/pages/spec/v${version}.md`);
+  if (existsSync(versionedPath)) {
+    const existing = readFileSync(versionedPath, 'utf8');
+    if (existing !== specPage) {
+      const err = new Error(
+        `refusing to overwrite src/pages/spec/v${version}.md — published version pages are immutable ` +
+        `(they're cited externally, e.g. in IANA well-known URI registration). ` +
+        `If v${version} of SPEC.md genuinely changed, bump the Version field in SPEC.md instead.`
+      );
+      err.fatal = true;
+      throw err;
+    }
+    console.log(`[sync-spec] src/pages/spec/v${version}.md unchanged, skipping write`);
+  } else {
+    writeFileSync(versionedPath, specPage);
+    console.log(`[sync-spec] wrote src/pages/spec/v${version}.md`);
+  }
 
   // Update the /spec redirect to point to latest
   const indexPage = `---
@@ -65,6 +80,10 @@ async function main() {
 }
 
 main().catch(err => {
+  if (err.fatal) {
+    console.error('[sync-spec] FATAL:', err.message);
+    process.exit(1);
+  }
   console.error('[sync-spec] warning: could not sync spec —', err.message);
   console.error('[sync-spec] using committed spec files as fallback');
   process.exit(0);
