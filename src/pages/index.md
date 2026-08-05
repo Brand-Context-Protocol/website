@@ -18,7 +18,7 @@ The protocol and the runtime are separate. You can publish BCP yourself from any
 
 ## Get Started
 - **Read the specification:** [BCP Spec](/spec)
-- **Author your first BCP:** [Start at encodedbrands.ai](https://encodedbrands.ai/start)
+- **Author your first BCP:** [Start at encodedbrands.ai](https://encodedbrands.ai)
 - **Use the public authoring prompt:** [encodedbrands.ai/bcp-authoring-prompt.md](https://encodedbrands.ai/bcp-authoring-prompt.md)
 - **Verify the reference Registry key:** [registry.brandcontextprotocol.dev](https://registry.brandcontextprotocol.dev/.well-known/registry-public-key)
 - **View the JSON Schema:** [Schema Reference](/schema)
