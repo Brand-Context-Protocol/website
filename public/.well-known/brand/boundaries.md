@@ -1,5 +1,5 @@
 ---
-bcp_version: "0.4"
+bcp_version: "0.7"
 file_type: boundaries
 parent: /.well-known/brand.md
 last_updated: 2026-06-11

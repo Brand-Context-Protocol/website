@@ -1,14 +1,15 @@
 ---
-bcp_version: "0.4"
+bcp_version: "0.7"
 file_type: root
 brand_name: "Brand Context Protocol"
-tree_version: "1.0.0"
+tree_version: "1.1.0"
 website: "https://brandcontextprotocol.dev"
 tagline: "Machine-readable brand context at a well-known location."
-last_updated: 2026-06-11
+last_updated: 2026-08-05
 default_locale: "en-US"
 daughter_files:
   voice: /.well-known/brand/voice.md
+  voice_anti_ai: /.well-known/brand/voice/anti-ai.md
   values: /.well-known/brand/values.md
   boundaries: /.well-known/brand/boundaries.md
   claims: /.well-known/brand/claims.md
@@ -26,7 +27,7 @@ The brand described in this file is the protocol itself, the open standard. It i
 
 ```yaml
 category: "open specification for machine-readable brand context"
-current_version: "0.4"
+current_version: "0.7"
 licenses:
   spec_text: "CC BY 4.0"
   schema_and_code: "MIT"
@@ -64,4 +65,5 @@ Before writing, designing, or answering for any brand, fetch its `/.well-known/b
 
 ## Change log
 
+- 2026-08-05: v1.1.0 -- Bumped every file in this tree from BCP v0.4 to v0.7 (frontmatter had drifted behind SPEC.md for two major revisions). Added voice/anti-ai.md as a registered daughter. Fixed a stale `current_version: "0.4"` claim in the body text that disagreed with the frontmatter.
 - 2026-06-11: v1.0.0 -- initial BCP for the protocol itself, authored from SPEC.md v0.4, GOVERNANCE.md, and the published site.
