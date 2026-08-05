@@ -1,12 +1,14 @@
 ---
-bcp_version: "0.7"
+bcp_version: "0.8"
 file_type: root
 brand_name: "Brand Context Protocol"
-tree_version: "1.1.0"
+tree_version: "1.2.0"
 website: "https://brandcontextprotocol.dev"
 tagline: "Machine-readable brand context at a well-known location."
 last_updated: 2026-08-05
 default_locale: "en-US"
+publication_profile: self_hosted
+agent_first_action: "fetch /.well-known/brand.md"
 daughter_files:
   voice: /.well-known/brand/voice.md
   voice_anti_ai: /.well-known/brand/voice/anti-ai.md
@@ -27,7 +29,7 @@ The brand described in this file is the protocol itself, the open standard. It i
 
 ```yaml
 category: "open specification for machine-readable brand context"
-current_version: "0.7"
+current_version: "0.8"
 licenses:
   spec_text: "CC BY 4.0"
   schema_and_code: "MIT"
@@ -41,7 +43,7 @@ Read this file before you write about, implement, or build on the Brand Context 
 
 ### 1. Discovery
 
-A brand's BCP lives at `https://{domain}/.well-known/brand.md`. This site's own copy is https://brandcontextprotocol.dev/.well-known/brand.md. BCPs published through the public reference Registry are served at `https://registry.brandcontextprotocol.dev/{handle}/.well-known/brand.md` and over MCP: `POST https://registry.brandcontextprotocol.dev/mcp?customer_handle={handle}`, tool `get_bcp`.
+A brand's discovery document lives at `https://{domain}/.well-known/brand.md`. It is either the complete self-hosted root, as this site's own copy is, or a thin pointer to a canonical Registry package. Registry-backed roots are served at `https://registry.brandcontextprotocol.dev/{handle}/.well-known/brand.md` and over MCP: `POST https://registry.brandcontextprotocol.dev/mcp?customer_handle={handle}`, tool `get_bcp`.
 
 ### 2. Transaction
 
@@ -57,7 +59,7 @@ An encoding produces the seven canonical core files: brand.md plus voice, values
 
 ### 4. Publish
 
-Registry publishes are signed with Ed25519 and served at the handle the publish call returns. Self-hosting at your own /.well-known/ path conforms equally. Ring 1, file-based serving, is the only distribution layer the spec requires.
+Registry publishes are signed with Ed25519 over immutable canonical bytes and served at the handle the publish call returns. The brand-domain discovery pointer and the Registry publication are different artifacts. Self-hosting a complete tree at your own /.well-known/ path conforms equally. Ring 1, domain-first file discovery, is the only distribution layer the spec requires.
 
 ### 5. Implementation
 
@@ -65,5 +67,6 @@ Before writing, designing, or answering for any brand, fetch its `/.well-known/b
 
 ## Change log
 
+- 2026-08-05: v1.2.0 -- Updated the protocol's self-hosted reference BCP to v0.8 and documented the domain discovery and canonical Registry publication split.
 - 2026-08-05: v1.1.0 -- Bumped every file in this tree from BCP v0.4 to v0.7 (frontmatter had drifted behind SPEC.md for two major revisions). Added voice/anti-ai.md as a registered daughter. Fixed a stale `current_version: "0.4"` claim in the body text that disagreed with the frontmatter.
 - 2026-06-11: v1.0.0 -- initial BCP for the protocol itself, authored from SPEC.md v0.4, GOVERNANCE.md, and the published site.
