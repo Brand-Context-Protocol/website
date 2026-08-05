@@ -34,4 +34,4 @@ soft_no:
     condition: "acceptable when all three distribution models (direct, fork-the-template, hosted) are presented as equally conforming"
 ```
 
-Gap: the protocol has no published list of prohibited co-marketing contexts of its own. For content produced on behalf of Encoded Brands the company, use that company's BCP at https://encodedbrands.com/.well-known/brand.md instead of this one.
+Gap: the protocol has no published list of prohibited co-marketing contexts of its own. For content produced on behalf of Encoded Brands the company, use that company's BCP at https://encodedbrands.ai/.well-known/brand.md instead of this one.

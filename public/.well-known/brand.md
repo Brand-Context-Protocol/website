@@ -46,8 +46,8 @@ A brand's BCP lives at `https://{domain}/.well-known/brand.md`. This site's own 
 
 The protocol requires no vendor. Any producer can author a BCP by hand from the spec and serve it from a static host. The reference implementation, operated by Encoded Brands, also lets an agent purchase and run an encoding itself:
 
-- MCP server: `POST https://encoder.encodedbrands.com/api/agent/mcp`. API-key auth. Tools: start_encode, add_source, answer, compile, publish.
-- REST lane: `POST https://encoder.encodedbrands.com/api/agent/encode`. Payment follows the Stripe Machine Payments Protocol: the first request returns an HTTP 402 challenge; retry the same request with `Authorization: Payment <credential>`. Shared payment tokens are the supported credential. USD 499 per encode.
+- MCP server: `POST https://encoder.encodedbrands.ai/api/agent/mcp`. API-key auth. Tools: start_encode, add_source, answer, compile, publish.
+- REST lane: `POST https://encoder.encodedbrands.ai/api/agent/encode`. Payment follows the Stripe Machine Payments Protocol: the first request returns an HTTP 402 challenge; retry the same request with `Authorization: Payment <credential>`. Shared payment tokens are the supported credential. USD 499 per encode.
 - API keys are issued by a human account owner, who is liable for agent activity under the operator's Terms.
 
 ### 3. Completion
