@@ -33,6 +33,8 @@ async function main() {
   const versionMatch = spec.match(/\*\*Version:\*\*\s+(\d+\.\d+)/);
   if (!versionMatch) throw new Error('Could not parse version from SPEC.md');
   const version = versionMatch[1];
+  const statusMatch = spec.match(/\*\*Status:\*\*\s+([^\n]+)/);
+  const status = statusMatch?.[1]?.trim().toLowerCase() ?? '';
 
   mkdirSync(join(ROOT, 'src/pages/spec'), { recursive: true });
 
@@ -45,7 +47,7 @@ async function main() {
   const versionedPath = join(ROOT, `src/pages/spec/v${version}.md`);
   if (existsSync(versionedPath)) {
     const existing = readFileSync(versionedPath, 'utf8');
-    if (existing !== specPage) {
+    if (existing !== specPage && status !== 'draft') {
       const err = new Error(
         `refusing to overwrite src/pages/spec/v${version}.md — published version pages are immutable ` +
         `(they're cited externally, e.g. in IANA well-known URI registration). ` +
@@ -54,7 +56,12 @@ async function main() {
       err.fatal = true;
       throw err;
     }
-    console.log(`[sync-spec] src/pages/spec/v${version}.md unchanged, skipping write`);
+    if (existing !== specPage) {
+      writeFileSync(versionedPath, specPage);
+      console.log(`[sync-spec] updated draft src/pages/spec/v${version}.md`);
+    } else {
+      console.log(`[sync-spec] src/pages/spec/v${version}.md unchanged, skipping write`);
+    }
   } else {
     writeFileSync(versionedPath, specPage);
     console.log(`[sync-spec] wrote src/pages/spec/v${version}.md`);
