@@ -1,5 +1,5 @@
 ---
-bcp_version: "0.7"
+bcp_version: "0.8"
 file_type: claims
 parent: /.well-known/brand.md
 last_updated: 2026-08-05
