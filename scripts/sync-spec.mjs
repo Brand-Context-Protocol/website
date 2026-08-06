@@ -22,7 +22,12 @@ async function getSpec() {
   if (flag !== -1) {
     return readFileSync(process.argv[flag + 1], 'utf8');
   }
-  const res = await fetch(SPEC_URL);
+  const specUrl = new URL(SPEC_URL);
+  specUrl.searchParams.set(
+    'build',
+    process.env.CF_PAGES_COMMIT_SHA ?? process.env.VERCEL_GIT_COMMIT_SHA ?? String(Date.now()),
+  );
+  const res = await fetch(specUrl, { cache: 'no-store' });
   if (!res.ok) throw new Error(`HTTP ${res.status} fetching SPEC.md`);
   return res.text();
 }
