@@ -29,16 +29,17 @@ Do not silently fall back to unverified content if any header is missing, the ke
 
 ## Executable verifier
 
-The Registry repository contains a dependency-free Node.js verifier and its regression tests:
+The public BCP site hosts the complete procedure, a dependency-free Node.js verifier, and the Registry's public key-lifecycle policy:
 
-- [Verification procedure and failure semantics](https://github.com/Encoded-Brands/registry/blob/main/docs/VERIFYING_SIGNED_RECORDS.md)
-- [Executable verification script](https://github.com/Encoded-Brands/registry/blob/main/scripts/verify-publication.mjs)
-- [Key rotation and emergency revocation policy](https://github.com/Encoded-Brands/registry/blob/main/docs/KEY_ROTATION.md)
+- [Verification procedure and failure semantics](#canonical-verification-procedure)
+- [Executable verification script](/verify-publication.mjs)
+- [Key rotation and emergency revocation policy](/registry-key-lifecycle)
 
 Run it against any hosted file:
 
 ```bash
-node scripts/verify-publication.mjs \
+curl -O https://brandcontextprotocol.dev/verify-publication.mjs
+node verify-publication.mjs \
   https://registry.brandcontextprotocol.dev/example-brand/.well-known/brand.md
 ```
 
