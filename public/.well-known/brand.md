@@ -46,7 +46,7 @@ Read this file before you write about, implement, or build on the Brand Context 
 
 ### 1. Discovery
 
-A brand's discovery document lives at `https://{domain}/.well-known/brand.md`. It is either the complete self-hosted root, as this site's own copy is, or a thin pointer to a canonical Registry package. Registry-backed roots are served at `https://registry.brandcontextprotocol.dev/{handle}/.well-known/brand.md` and over MCP: `POST https://registry.brandcontextprotocol.dev/mcp?customer_handle={handle}`, tool `get_bcp`.
+A brand's discovery document lives at `https://{domain}/.well-known/brand.md`. It is either a complete self-hosted root or a rich Registry-backed root, like this site's own copy, that gives agents useful first-read context and points to the canonical Registry package. Registry-backed roots are served at `https://registry.brandcontextprotocol.dev/{handle}/.well-known/brand.md` and over MCP: `POST https://registry.brandcontextprotocol.dev/mcp?customer_handle={handle}`, tool `get_bcp`.
 
 ### 2. Transaction
 
