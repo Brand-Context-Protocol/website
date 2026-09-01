@@ -1,0 +1,21 @@
+User-agent: *
+Content-signal: search=yes, ai-input=yes, ai-train=no, use=reference
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Google uses this token for Gemini training and grounding together.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://brandcontextprotocol.dev/sitemap.xml

@@ -2,7 +2,7 @@
 bcp_version: "0.8"
 file_type: claims
 parent: /.well-known/brand.md
-last_updated: 2026-08-05
+last_updated: 2026-09-01
 ---
 
 # Claims
@@ -17,8 +17,8 @@ approved:
     evidence: "LICENSE-SPEC and LICENSE-CODE in github.com/Brand-Context-Protocol/spec."
     status: verified
 
-  - claim: "The current specification version is 0.7, in draft status."
-    evidence: "SPEC.md header: Version 0.7, Status Draft."
+  - claim: "The current specification version is 0.8, in draft status."
+    evidence: "SPEC.md header: Version 0.8, Status Draft."
     status: verified
 
   - claim: "A conforming BCP is published at /.well-known/brand.md on the brand's domain, with daughter files under /.well-known/brand/."

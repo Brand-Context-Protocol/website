@@ -2,21 +2,24 @@
 bcp_version: "0.8"
 file_type: root
 brand_name: "Brand Context Protocol"
-tree_version: "1.2.0"
+tree_version: "1.3.0"
 website: "https://brandcontextprotocol.dev"
 tagline: "Machine-readable brand context at a well-known location."
-last_updated: 2026-08-05
+last_updated: 2026-09-01
 default_locale: "en-US"
-publication_profile: self_hosted
-agent_first_action: "fetch /.well-known/brand.md"
+publication_profile: registry_backed
+canonical_bcp: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand.md
+registry_mcp: https://registry.brandcontextprotocol.dev/mcp?customer_handle=brand-context-protocol
+registry_handle: brand-context-protocol
+agent_first_action: "fetch https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand.md"
 daughter_files:
-  voice: /.well-known/brand/voice.md
-  voice_anti_ai: /.well-known/brand/voice/anti-ai.md
-  values: /.well-known/brand/values.md
-  boundaries: /.well-known/brand/boundaries.md
-  claims: /.well-known/brand/claims.md
-  representation: /.well-known/brand/representation.md
-  visual: /.well-known/brand/visual.md
+  voice: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/voice.md
+  voice_anti_ai: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/voice/anti-ai.md
+  values: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/values.md
+  boundaries: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/boundaries.md
+  claims: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/claims.md
+  representation: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/representation.md
+  visual: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/visual.md
 ---
 
 # Brand Context Protocol
@@ -49,9 +52,10 @@ A brand's discovery document lives at `https://{domain}/.well-known/brand.md`. I
 
 The protocol requires no vendor. Any producer can author a BCP by hand from the spec and serve it from a static host. The reference implementation, operated by Encoded Brands, also lets an agent purchase and run an encoding itself:
 
-- MCP server: `POST https://encoder.encodedbrands.ai/api/agent/mcp`. API-key auth. Tools: start_encode, add_source, answer, compile, publish.
-- REST lane: `POST https://encoder.encodedbrands.ai/api/agent/encode`. Payment follows the Stripe Machine Payments Protocol: the first request returns an HTTP 402 challenge; retry the same request with `Authorization: Payment <credential>`. Shared payment tokens are the supported credential. USD 499 per encode.
-- API keys are issued by a human account owner, who is liable for agent activity under the operator's Terms.
+- Commerce discovery: `GET https://encoder.encodedbrands.ai/.well-known/agent-commerce.json`. This live document is authoritative for the offer, transaction amount, payment challenge, credentials, and MCP path.
+- Registration: `POST https://encoder.encodedbrands.ai/api/agent/register`. The first request returns an HTTP 402 challenge. Retry the same body with a Stripe Shared Payment Token in `Authorization: Payment <credential>`.
+- The current machine offer is USD 499 one time for one API key and one complete encoding session. Subsequent AI-assisted encodings are USD 49 each.
+- MCP server: `POST https://encoder.encodedbrands.ai/api/agent/mcp`. Use the returned API key as `Authorization: Bearer <api_key>`, then call `initialize` and `tools/list`; the live tool list is authoritative.
 
 ### 3. Completion
 
@@ -67,6 +71,7 @@ Before writing, designing, or answering for any brand, fetch its `/.well-known/b
 
 ## Change log
 
+- 2026-09-01: v1.3.0 -- Connected the protocol's domain entry point to its dedicated Registry package, updated the agent transaction contract, and corrected current-version claims.
 - 2026-08-05: v1.2.0 -- Updated the protocol's self-hosted reference BCP to v0.8 and documented the domain discovery and canonical Registry publication split.
 - 2026-08-05: v1.1.0 -- Bumped every file in this tree from BCP v0.4 to v0.7 (frontmatter had drifted behind SPEC.md for two major revisions). Added voice/anti-ai.md as a registered daughter. Fixed a stale `current_version: "0.4"` claim in the body text that disagreed with the frontmatter.
 - 2026-06-11: v1.0.0 -- initial BCP for the protocol itself, authored from SPEC.md v0.4, GOVERNANCE.md, and the published site.
