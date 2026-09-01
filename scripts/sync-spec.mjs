@@ -87,6 +87,7 @@ async function main() {
 ---
 <html>
   <head>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta http-equiv="refresh" content="0;url=/spec/v${latestVersion}" />
     <script>window.location.replace('/spec/v${latestVersion}');</script>
   </head>
