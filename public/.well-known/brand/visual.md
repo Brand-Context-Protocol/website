@@ -2,7 +2,7 @@
 bcp_version: "0.8"
 file_type: visual
 parent: /.well-known/brand.md
-last_updated: 2026-06-11
+last_updated: 2026-09-01
 ---
 
 # Visual
@@ -62,4 +62,4 @@ typography:
 
 - Gap: no logo or wordmark asset exists. Do not invent one. Set the name in Space Grotesk when a mark is needed.
 - Gap: no imagery, illustration, or motion guidance exists.
-- Gap: no favicon is published.
+- Gap: no protocol-specific favicon is published.

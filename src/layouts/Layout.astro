@@ -1,14 +1,42 @@
 ---
 import "../styles/global.css";
-const { title, description } = Astro.props;
+const metadata = Astro.props.frontmatter ?? Astro.props;
+const { title = "Brand Context Protocol", description = "The open specification for machine-readable brand context." } = metadata;
+const canonicalPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replace(/\/$/, "");
+const canonical = new URL(canonicalPath, Astro.site ?? Astro.url.origin).href;
+const pageTitle = title === "Home" ? "Brand Context Protocol" : `${title} | Brand Context Protocol`;
+const noIndex = title === "Not Found";
+const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": "https://brandcontextprotocol.dev/#website",
+            name: "Brand Context Protocol",
+            url: "https://brandcontextprotocol.dev/",
+            description: "The open specification for machine-readable brand context.",
+        },
+        {
+            "@type": Astro.url.pathname.startsWith("/spec/") ? "TechArticle" : "WebPage",
+            name: pageTitle,
+            description,
+            url: canonical,
+            isPartOf: { "@id": "https://brandcontextprotocol.dev/#website" },
+        },
+    ],
+};
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} | Brand Context Protocol</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex,follow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="text/markdown" href="https://brandcontextprotocol.dev/.well-known/brand.md" title="Brand Context Protocol BCP" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
