@@ -2,10 +2,10 @@
 bcp_version: "0.8"
 file_type: root
 brand_name: "Brand Context Protocol"
-tree_version: "1.3.0"
+tree_version: "1.3.1"
 website: "https://brandcontextprotocol.dev"
 tagline: "Machine-readable brand context at a well-known location."
-last_updated: 2026-09-01
+last_updated: 2026-09-02
 default_locale: "en-US"
 publication_profile: registry_backed
 canonical_bcp: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand.md
@@ -71,6 +71,7 @@ Before writing, designing, or answering for any brand, fetch its `/.well-known/b
 
 ## Change log
 
+- 2026-09-02: v1.3.1 -- Recorded the published protocol favicon and added automated checks that the domain and Registry packages stay byte-identical, signed, and verified.
 - 2026-09-01: v1.3.0 -- Connected the protocol's domain entry point to its dedicated Registry package, updated the agent transaction contract, and corrected current-version claims.
 - 2026-08-05: v1.2.0 -- Updated the protocol's self-hosted reference BCP to v0.8 and documented the domain discovery and canonical Registry publication split.
 - 2026-08-05: v1.1.0 -- Bumped every file in this tree from BCP v0.4 to v0.7 (frontmatter had drifted behind SPEC.md for two major revisions). Added voice/anti-ai.md as a registered daughter. Fixed a stale `current_version: "0.4"` claim in the body text that disagreed with the frontmatter.

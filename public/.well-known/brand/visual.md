@@ -2,7 +2,7 @@
 bcp_version: "0.8"
 file_type: visual
 parent: /.well-known/brand.md
-last_updated: 2026-09-01
+last_updated: 2026-09-02
 ---
 
 # Visual
@@ -57,9 +57,9 @@ typography:
 - Hairline 1px rules separate sections; h2 headings carry a top rule.
 - Code blocks are ink-dark with a 4px accent left border.
 - Underlined links with a 4px underline offset.
+- The published favicon is `/favicon.svg`: a contained red square with the white eight-dot protocol mark. Use it for browser tabs, bookmarks, and compact application-icon contexts.
 
 ## Gaps
 
-- Gap: no logo or wordmark asset exists. Do not invent one. Set the name in Space Grotesk when a mark is needed.
+- Gap: no separate wordmark or horizontal logo asset exists. Do not stretch the favicon into one. Set the full name in Space Grotesk when a wordmark is needed.
 - Gap: no imagery, illustration, or motion guidance exists.
-- Gap: no protocol-specific favicon is published.
