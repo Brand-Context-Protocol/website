@@ -9,9 +9,9 @@ Machine-readable JSON Schemas for validating BCP files. Served with `Content-Typ
 
 ## Current schema
 
-- [brand-context.schema.json](https://schema.brandcontextprotocol.dev/brand-context.schema.json) — Validates v0.8 root, pointer, and daughter frontmatter, including self-hosted and Registry-backed references
-- [claims.schema.json](https://schema.brandcontextprotocol.dev/claims.schema.json) — Validates the deterministic claims companion
-- [manifest.schema.json](https://schema.brandcontextprotocol.dev/manifest.schema.json) — Validates package file records, checksums, and extension metadata
+- [brand-context.schema.json](https://schema.brandcontextprotocol.dev/brand-context.schema.json) — Validates BCP v1.1.0 root, pointer, and daughter frontmatter, including Registry-direct, self-hosted, and Registry-backed packages
+- [claims.schema.json](https://schema.brandcontextprotocol.dev/claims.schema.json) — Validates the deterministic claims companion, including three-component BCP versions
+- [manifest.schema.json](https://schema.brandcontextprotocol.dev/manifest.schema.json) — Validates package file records, checksums, extension metadata, and three-component BCP versions
 
 ## v0.2 daughter schemas
 

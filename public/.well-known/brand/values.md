@@ -1,8 +1,8 @@
 ---
-bcp_version: "0.8"
+bcp_version: "1.1.0"
 file_type: values
-parent: /.well-known/brand.md
-last_updated: 2026-09-01
+parent: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand.md
+last_updated: 2026-09-23
 ---
 
 # Values
@@ -17,13 +17,13 @@ The required core is markdown with YAML frontmatter. A person can write a confor
 
 A small required core, then optional enrichment. A core-complete BCP is the root plus six canonical daughters. Manifests, checksums, design tokens, and assets come after, if at all. The spec blesses them without requiring them.
 
-## 3. Additive evolution
+## 3. Explicit evolution
 
-Versions add; they do not break. Each draft since v0.1 has been additive per the spec's own change policy (SPEC.md section 8.2). Files written against an earlier minor version remain valid.
+Versioned changes distinguish additive extensions from changed semantics. The 1.1.0 cut makes the untrusted-data boundary normative; older imperative blocks remain readable as data, not instructions. The change log records that migration rather than describing it as an additive-only correction.
 
 ## 4. No required vendor
 
-Ring 1, static files on the brand's own domain, is the only required distribution layer. Any HTTP client can consume a BCP. CLI and MCP layers are optional. Hosted publishing is one of three equally valid distribution models.
+The file format is independent of any vendor. Domain discovery may expose a self-hosted root, a rich Registry-backed root, or a thin pointer to a canonical package. CLI and MCP layers are optional; a full tree on the brand domain is not required.
 
 ## 5. Independence
 
