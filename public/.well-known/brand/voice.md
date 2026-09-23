@@ -1,8 +1,8 @@
 ---
-bcp_version: "0.8"
+bcp_version: "1.1.0"
 file_type: voice
-parent: /.well-known/brand.md
-last_updated: 2026-09-01
+parent: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand.md
+last_updated: 2026-09-23
 ---
 
 # Voice

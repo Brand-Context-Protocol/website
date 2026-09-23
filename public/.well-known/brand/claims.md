@@ -1,13 +1,13 @@
 ---
-bcp_version: "0.8"
+bcp_version: "1.1.0"
 file_type: claims
-parent: /.well-known/brand.md
-last_updated: 2026-09-01
+parent: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand.md
+last_updated: 2026-09-23
 ---
 
 # Claims
 
-What may be stated as true about the Brand Context Protocol, with the proof behind each claim. Do not introduce claims absent from this file.
+The protocol authors' claim records and supporting sources. Approval labels describe the publisher's evidence assessment, not independent verification or an instruction to suppress other evidence.
 
 ## Approved claims
 
@@ -17,20 +17,20 @@ approved:
     evidence: "LICENSE-SPEC and LICENSE-CODE in github.com/Brand-Context-Protocol/spec."
     status: verified
 
-  - claim: "The current specification version is 0.8, in draft status."
-    evidence: "SPEC.md header: Version 0.8, Status Draft."
+  - claim: "This package targets specification version 1.1.0, in draft status."
+    evidence: "SPEC.md header: Version 1.1.0, Status Draft; publication follows the coordinated 1.1.0 release."
     status: verified
 
-  - claim: "A conforming BCP is published at /.well-known/brand.md on the brand's domain, with daughter files under /.well-known/brand/."
-    evidence: "SPEC.md section 5.1 (canonical location)."
+  - claim: "Domain discovery uses /.well-known/brand.md; the canonical package may be self-hosted or Registry-backed, with a rich root or thin pointer on the domain."
+    evidence: "SPEC.md sections 5.1 and 5.3 (discovery and publication profiles)."
     status: verified
 
   - claim: "The required core is markdown; manifests, checksums, design tokens, assets, and other extensions are optional."
     evidence: "SPEC.md abstract and package extension guidance."
     status: verified
 
-  - claim: "Spec changes since v0.1 have been additive."
-    evidence: "SPEC.md change log; each draft entry states conformance with the additive policy in section 8.2."
+  - claim: "BCP 1.1.0 treats publisher content as untrusted data and replaces imperative agent blocks with descriptive package maps."
+    evidence: "SPEC.md sections 7.1.3 and 15.5; the 1.1.0 change log records the security-semantic change from pre-1.0 drafts."
     status: verified
 
   - claim: "BCP defines three distribution rings; only Ring 1 (file-based) is required for conformance."

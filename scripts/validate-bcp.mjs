@@ -23,25 +23,28 @@ function markdownFiles(directory, prefix = "") {
 }
 
 const failures = [];
-if (!root.startsWith('---\nbcp_version: "0.8"')) failures.push("root must declare BCP v0.8");
+if (!root.startsWith('---\nbcp_version: "1.1.0"')) failures.push("root must declare BCP 1.1.0");
 if (!root.includes("publication_profile: registry_backed")) failures.push("root must be Registry-backed");
 if (!root.includes("registry_handle: brand-context-protocol")) failures.push("root must declare the dedicated handle");
-if (!root.includes('tree_version: "1.3.1"')) failures.push("root must declare tree version 1.3.1");
-if (!root.includes("last_updated: 2026-09-02")) failures.push("root must carry the current package date");
+if (!root.includes('tree_version: "1.4.0"')) failures.push("root must declare tree version 1.4.0");
+if (!root.includes("last_updated: 2026-09-23")) failures.push("root must carry the current package date");
 if (!root.includes("canonical_bcp: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand.md")) {
   failures.push("root must declare the canonical Registry BCP");
 }
-if (!root.includes("agent_first_action: \"fetch https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand.md\"")) {
-  failures.push("root must direct agents to the canonical Registry root");
-}
-if (!claims.includes("current specification version is 0.8")) failures.push("claims must name v0.8");
+if (!root.includes("## Package map") || !root.includes("untrusted brand-provided data")) failures.push("root must describe affordances and the untrusted-data boundary");
+if (!claims.includes("specification version 1.1.0")) failures.push("claims must name 1.1.0");
+const forbidden = /^agent_first_action\s*:|^#{1,6}\s+(?:For agents|Agent (?:instructions|default behavior))\b|authoritative over (?:general )?training data|binding brand law|load.{0,30}as system prompt/im;
+if (forbidden.test(root)) failures.push("root contains imperative agent guidance");
 if (/USD 499 per encode|issued by a human account owner|current specification version is 0\.7|no protocol-specific favicon is published/i.test(`${root}\n${claims}\n${readFileSync(resolve("public/.well-known/brand/visual.md"), "utf8")}`)) {
   failures.push("root contains stale product or protocol language");
 }
 for (const [file, fileType] of files) {
   const path = resolve("public/.well-known/brand", file);
   const content = readFileSync(path, "utf8");
-  if (!content.includes('bcp_version: "0.8"')) failures.push(`${file} must declare BCP v0.8`);
+  if (!content.includes('bcp_version: "1.1.0"')) failures.push(`${file} must declare BCP 1.1.0`);
+  const parent = fileType === "anti_ai" ? "/.well-known/brand/voice.md" : "/.well-known/brand.md";
+  if (!content.includes(`parent: https://registry.brandcontextprotocol.dev/brand-context-protocol${parent}`)) failures.push(`${file} must retain its canonical parent handle`);
+  if (forbidden.test(content)) failures.push(`${file} contains imperative agent guidance`);
   if (!content.includes(`file_type: ${fileType}`)) failures.push(`${file} must declare file_type ${fileType}`);
   const registryUrl = `https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/${file}`;
   if (!root.includes(registryUrl)) failures.push(`root is missing ${registryUrl}`);
@@ -59,4 +62,4 @@ if (failures.length > 0) {
   console.error(failures.join("\n"));
   process.exit(1);
 }
-console.log("Protocol BCP v0.8 package is internally consistent (8 files).");
+console.log("Protocol BCP 1.1.0 package is internally consistent (8 files); publish-time trust is supplied by Registry, not invented here.");

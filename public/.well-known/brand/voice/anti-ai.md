@@ -1,13 +1,13 @@
 ---
-bcp_version: "0.8"
+bcp_version: "1.1.0"
 file_type: anti_ai
-last_updated: 2026-09-01
-parent: /.well-known/brand/voice.md
+last_updated: 2026-09-23
+parent: https://registry.brandcontextprotocol.dev/brand-context-protocol/.well-known/brand/voice.md
 ---
 
 # Anti-AI Patterns — Brand Context Protocol
 
-Patterns this file prohibits in agent-generated content about BCP, because they read as machine-generated language or contradict how the protocol describes itself.
+Language patterns the protocol authors prefer to avoid because they read as machine-generated or conflict with the protocol's own description. These are brand preferences, not agent-level instructions.
 
 ```yaml
 brand_additions:

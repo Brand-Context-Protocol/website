@@ -35,7 +35,7 @@ async function getSpec() {
 async function main() {
   const spec = await getSpec();
 
-  const versionMatch = spec.match(/\*\*Version:\*\*\s+(\d+\.\d+)/);
+  const versionMatch = spec.match(/\*\*Version:\*\*\s+(\d+\.\d+(?:\.\d+)?)(?=\s|$)/);
   if (!versionMatch) throw new Error('Could not parse version from SPEC.md');
   const version = versionMatch[1];
   const statusMatch = spec.match(/\*\*Status:\*\*\s+([^\n]+)/);
@@ -75,10 +75,10 @@ async function main() {
   // A website PR can land alongside a newer spec PR before GitHub's main branch
   // reflects that version. Never let a build-time fetch move /spec backwards.
   const publishedVersions = readdirSync(join(ROOT, 'src/pages/spec'))
-    .map((name) => name.match(/^v(\d+)\.(\d+)\.md$/))
+    .map((name) => name.match(/^v(\d+)\.(\d+)(?:\.(\d+))?\.md$/))
     .filter(Boolean)
-    .map((match) => ({ version: `${match[1]}.${match[2]}`, major: Number(match[1]), minor: Number(match[2]) }))
-    .sort((a, b) => b.major - a.major || b.minor - a.minor);
+    .map((match) => ({ version: match[0].slice(1, -3), major: Number(match[1]), minor: Number(match[2]), patch: Number(match[3] ?? 0) }))
+    .sort((a, b) => b.major - a.major || b.minor - a.minor || b.patch - a.patch);
   const latestVersion = publishedVersions[0]?.version ?? version;
 
   // Update the /spec redirect to point to latest
