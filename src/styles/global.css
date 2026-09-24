@@ -436,7 +436,25 @@ body.protocol-guide {
   .protocol-guide footer { margin-top: 48px; line-height: 1.8; }
 }
 
-/* Shared Encoded chrome for the current protocol entry points. */
+/* Schema and archived versions share the Encoded reading shell without changing their Markdown. */
+.protocol-reference article h1 {
+  background: url('/img/gradient-dawn.png') center / cover no-repeat, #e8f0f5;
+  color: var(--guide-ink);
+}
+.protocol-archive article h1 {
+  margin: 0 0 28px;
+  padding: 0;
+  background: none;
+  color: var(--guide-ink);
+}
+.protocol-archive article > h1 + p {
+  color: #52504b;
+  font-size: 16px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* Shared Encoded chrome for protocol reading and navigation. */
 body:is(.current-spec, .protocol-home, .protocol-not-found, .protocol-guide) > nav {
   box-sizing: border-box;
   max-width: 1360px;
