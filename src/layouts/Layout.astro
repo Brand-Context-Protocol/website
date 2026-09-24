@@ -6,6 +6,29 @@ const canonicalPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.repl
 const canonical = new URL(canonicalPath, Astro.site ?? Astro.url.origin).href;
 const pageTitle = title === "Home" ? "Brand Context Protocol" : `${title} | Brand Context Protocol`;
 const noIndex = title === "Not Found";
+const isCurrentSpec = /^\/spec\/v1\.1\.0\/?$/.test(Astro.url.pathname);
+const specSections = [
+    ["Abstract", "abstract"],
+    ["Change log", "change-log"],
+    ["01 · Introduction", "1-introduction"],
+    ["02 · Terminology", "2-terminology"],
+    ["03 · Architecture", "3-architecture-overview"],
+    ["04 · File format", "4-file-format"],
+    ["05 · Publishing", "5-publishing-a-bcp"],
+    ["06 · Resolution", "6-hierarchical-resolution"],
+    ["07 · File tree", "7-the-file-tree"],
+    ["08 · Versioning", "8-versioning"],
+    ["09 · Taxonomies", "9-content-taxonomies"],
+    ["10 · Representation", "10-representation"],
+    ["11 · Localization", "11-localization"],
+    ["12 · Privacy and access", "12-privacy-access-control-and-authentication"],
+    ["13 · Consumer ergonomics", "13-consumer-ergonomics"],
+    ["14 · Producer ergonomics", "14-producer-ergonomics"],
+    ["15 · Security", "15-security-considerations"],
+    ["16 · Conformance", "16-conformance"],
+    ["17 · Future work", "17-open-questions-and-future-work"],
+    ["18 · Appendices", "18-appendices"],
+] as const;
 const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -40,18 +63,26 @@ const structuredData = {
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
-    <nav>
-        <a href="/">[ Home ]</a>
-        <a href="/spec">[ Spec ]</a>
-        <a href="/schema">[ Schema ]</a>
-        <a href="/registry-verification">[ Verify Registry ]</a>
-        <a href="https://github.com/Brand-Context-Protocol/spec">[ GitHub ]</a>
+<body class:list={{ "current-spec": isCurrentSpec }}>
+    <nav aria-label="Primary navigation">
+        {isCurrentSpec && <a class="spec-wordmark" href="/" aria-label="Brand Context Protocol home"><img src="/favicon.svg" alt="" width="32" height="32" /><span>Brand Context<br />Protocol</span></a>}
+        <div class="nav-links">
+            <a href="/">{isCurrentSpec ? "Home" : "[ Home ]"}</a>
+            <a href="/spec" aria-current={isCurrentSpec ? "page" : undefined}>{isCurrentSpec ? "Specification" : "[ Spec ]"}</a>
+            <a href="/schema">{isCurrentSpec ? "Schemas" : "[ Schema ]"}</a>
+            <a href="/registry-verification">{isCurrentSpec ? "Verify Registry" : "[ Verify Registry ]"}</a>
+            <a href="https://github.com/Brand-Context-Protocol/spec">{isCurrentSpec ? "GitHub ↗" : "[ GitHub ]"}</a>
+        </div>
     </nav>
     <main>
-        <slot />
+        {isCurrentSpec && <div class="spec-banner" aria-label="Specification status"><div class="spec-banner-top"><span>Open standard / Reference document</span><span>BCP / SPEC</span></div><div class="spec-banner-main"><span>Specification</span><strong>v1.1.0</strong></div><div class="spec-banner-bottom"><span>Draft · 23 September 2026</span><span>CC BY 4.0</span></div></div>}
+        <div class:list={{ "spec-layout": isCurrentSpec }}>
+            {isCurrentSpec && <aside class="spec-index" aria-label="On this page"><p>On this page</p><ol>{specSections.map(([label, id]) => <li><a href={`#${id}`}>{label}</a></li>)}</ol><a class="spec-index-top" href="#top">Back to top ↑</a></aside>}
+            {isCurrentSpec && <details class="spec-mobile-index"><summary>On this page <span aria-hidden="true">+</span></summary><ol>{specSections.map(([label, id]) => <li><a href={`#${id}`}>{label}</a></li>)}</ol></details>}
+            <article class:list={{ "spec-document": isCurrentSpec }} id={isCurrentSpec ? "top" : undefined}><slot /></article>
+        </div>
     </main>
     <footer>
         &copy; 2026 &middot; BCP is an open standard maintained by Encoded Brands.
