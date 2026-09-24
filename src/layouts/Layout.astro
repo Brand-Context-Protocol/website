@@ -84,7 +84,7 @@ const structuredData = {
         </div>
     </nav>
     <main>
-        {isCurrentSpec && <div class="spec-banner" aria-label="Specification status"><div class="spec-banner-top"><span>Open standard / Reference document</span><span>BCP / SPEC</span></div><div class="spec-banner-main"><span>Specification</span><strong>v1.1.0</strong></div><div class="spec-banner-bottom"><span>Draft · 23 September 2026</span><span>CC BY 4.0</span></div></div>}
+        {isCurrentSpec && <div class="spec-banner" aria-label="Specification status"><div class="spec-banner-main"><span>Specification</span><strong>v1.1.0</strong></div><div class="spec-banner-bottom"><span>Draft · 23 September 2026</span><span>CC BY 4.0</span></div></div>}
         <div class:list={{ "spec-layout": isCurrentSpec }}>
             {isCurrentSpec && <aside class="spec-index" aria-label="On this page"><p>On this page</p><ol>{specSections.map(([label, id]) => <li><a href={`#${id}`}>{label}</a></li>)}</ol><a class="spec-index-top" href="#top">Back to top ↑</a></aside>}
             {isCurrentSpec && <details class="spec-mobile-index"><summary>On this page <span aria-hidden="true">+</span></summary><ol>{specSections.map(([label, id]) => <li><a href={`#${id}`}>{label}</a></li>)}</ol></details>}

@@ -3,19 +3,18 @@ import Layout from "../layouts/Layout.astro";
 ---
 <Layout title="Home" description="The Brand Context Protocol specification.">
   <section class="home-hero" aria-labelledby="home-title">
-    <div class="home-hero-top"><span>Open standard / Public documentation</span><span>BCP / 1.1.0</span></div>
     <div class="home-hero-main">
       <div>
         <h1 id="home-title">Brand Context<br /><span>Protocol.</span></h1>
         <p class="home-deck">AI agents generate content about your brand every day. Without a machine-readable source of truth, they guess. BCP gives them the answer.</p>
       </div>
-      <div class="home-path" aria-label="Domain discovery path"><span>Domain-first discovery</span><code>/.well-known/brand.md</code><a href="/spec/v1.1.0/">Read the v1.1.0 specification <span aria-hidden="true">↗</span></a></div>
+      <div class="home-path" aria-label="Domain discovery path"><code>/.well-known/brand.md</code><a href="/spec/v1.1.0/">Read the v1.1.0 specification <span aria-hidden="true">↗</span></a></div>
     </div>
-    <div class="home-hero-bottom"><span>Current specification · Draft v1.1.0</span><span>CC BY 4.0</span></div>
+    <div class="home-hero-bottom"><span>Draft v1.1.0</span><span>CC BY 4.0</span></div>
   </section>
 
   <section class="home-intro" aria-labelledby="home-how-title">
-    <div><p class="home-label">How it works</p><h2 id="home-how-title">Publish once.<br />Make context readable.</h2></div>
+    <div><h2 id="home-how-title">Publish once.<br />Make context readable.</h2></div>
     <div><p>Publish a discovery document at <code>/.well-known/brand.md</code> on your domain. It can contain your complete self-hosted BCP or point to a canonical Registry package. Agents, platforms, and tools follow the same domain-first discovery path in either case.</p></div>
   </section>
 
@@ -24,9 +23,9 @@ import Layout from "../layouts/Layout.astro";
     <div><span class="home-number">02 / Reference runtime</span><h3>A managed path.</h3><p>Encoded Brands also operates the reference hosted Registry at <code>registry.brandcontextprotocol.dev</code>; that runtime signs immutable canonical packages at publication, verifies them on reads, serves them over MCP, and gives teams a managed path when they do not want to run the serving layer themselves.</p></div>
   </section>
 
-  <section class="home-choice" aria-labelledby="home-choice-title"><p class="home-label">Your choice</p><h2 id="home-choice-title">The protocol and the runtime are separate.</h2><p>You can publish BCP yourself from any static host, use another conformant Registry, or use Encoded Brands' hosted Registry.</p></section>
+  <section class="home-choice" aria-labelledby="home-choice-title"><h2 id="home-choice-title">The protocol and the runtime are separate.</h2><p>You can publish BCP yourself from any static host, use another conformant Registry, or use Encoded Brands' hosted Registry.</p></section>
 
-  <section class="home-start" aria-labelledby="home-start-title"><div><p class="home-label">Start here</p><h2 id="home-start-title">Get started.</h2></div><div class="home-link-grid">
+  <section class="home-start" aria-labelledby="home-start-title"><div><h2 id="home-start-title">Get started.</h2></div><div class="home-link-grid">
     <a href="/spec/v1.1.0/"><span>01</span><strong>Read the specification</strong><small>BCP v1.1.0</small><b aria-hidden="true">↗</b></a>
     <a href="https://encodedbrands.ai"><span>02</span><strong>Author your first BCP</strong><small>Start at encodedbrands.ai</small><b aria-hidden="true">↗</b></a>
     <a href="https://encodedbrands.ai/bcp-authoring-prompt.md"><span>03</span><strong>Use the public authoring prompt</strong><small>encodedbrands.ai/bcp-authoring-prompt.md</small><b aria-hidden="true">↗</b></a>

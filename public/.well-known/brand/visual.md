@@ -53,7 +53,7 @@ typography:
 
 ## Rules
 
-- White, ink, and International Orange form the palette. The approved Dawn image may be used as a hero background beneath an ink scrim; it is not a second brand accent.
+- White, ink, and International Orange form the palette. The approved Dawn image may be used as a light hero background with ink text or beneath an ink scrim on technical banners; it is not a second brand accent.
 - Use inset rings rather than offset drop shadows. Cards and navigation use a 10px radius; shell panels use 20px.
 - Hairline rules separate sections. Use only meaningful mono labels; do not repeat decorative eyebrows before every heading.
 - Code blocks are ink-dark, and links remain visibly underlined in reading text.
