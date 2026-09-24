@@ -12,7 +12,10 @@ const isNotFound = title === "Not Found";
 const isVerificationGuide = /^\/registry-verification\/?$/.test(Astro.url.pathname);
 const isKeyLifecycleGuide = /^\/registry-key-lifecycle\/?$/.test(Astro.url.pathname);
 const isProtocolGuide = isVerificationGuide || isKeyLifecycleGuide;
-const hasProtocolChrome = isCurrentSpec || isProtocolHome || isNotFound || isProtocolGuide;
+const isSchemaReference = /^\/schema\/?$/.test(Astro.url.pathname);
+const isArchivedSpec = /^\/spec\/v0\.\d+\/?$/.test(Astro.url.pathname);
+const isProtocolReference = isSchemaReference || isArchivedSpec;
+const hasProtocolChrome = isCurrentSpec || isProtocolHome || isNotFound || isProtocolGuide || isProtocolReference;
 const specSections = [
     ["Abstract", "abstract"],
     ["Change log", "change-log"],
@@ -72,13 +75,13 @@ const structuredData = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body class:list={{ "current-spec": isCurrentSpec, "protocol-home": isProtocolHome, "protocol-not-found": isNotFound, "protocol-guide": isProtocolGuide, "protocol-key-lifecycle": isKeyLifecycleGuide }}>
+<body class:list={{ "current-spec": isCurrentSpec, "protocol-home": isProtocolHome, "protocol-not-found": isNotFound, "protocol-guide": isProtocolGuide || isProtocolReference, "protocol-reference": isProtocolReference, "protocol-schema": isSchemaReference, "protocol-archive": isArchivedSpec, "protocol-key-lifecycle": isKeyLifecycleGuide }}>
     <nav aria-label="Primary navigation">
         {hasProtocolChrome && <a class="spec-wordmark" href="/" aria-label="Brand Context Protocol home"><img src="/brand-mark.svg" alt="Encoded Brands logomark" width="31" height="36" /><span>Brand Context<br />Protocol</span></a>}
         <div class="nav-links">
             <a href="/" aria-current={isProtocolHome ? "page" : undefined}>{hasProtocolChrome ? "Home" : "[ Home ]"}</a>
             <a href="/spec">{hasProtocolChrome ? "Specification" : "[ Spec ]"}</a>
-            <a href="/schema">{hasProtocolChrome ? "Schemas" : "[ Schema ]"}</a>
+            <a href="/schema" aria-current={isSchemaReference ? "page" : undefined}>{hasProtocolChrome ? "Schemas" : "[ Schema ]"}</a>
             <a href="/registry-verification" aria-current={isVerificationGuide ? "page" : undefined}>{hasProtocolChrome ? "Verify Registry" : "[ Verify Registry ]"}</a>
             <a href="https://github.com/Brand-Context-Protocol/spec">{hasProtocolChrome ? "GitHub ↗" : "[ GitHub ]"}</a>
         </div>
