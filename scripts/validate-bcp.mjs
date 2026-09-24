@@ -55,9 +55,10 @@ if (JSON.stringify(actualDaughters) !== JSON.stringify(expectedDaughters)) {
   failures.push(`daughter file set drifted: ${actualDaughters.join(", ")}`);
 }
 const visual = readFileSync(resolve("public/.well-known/brand/visual.md"), "utf8");
-if (!visual.includes("`/favicon.svg`")) failures.push("visual guidance must register the published favicon");
+if (!visual.includes("`/favicon.svg`") || !visual.includes("`/brand-mark.svg`")) failures.push("visual guidance must register the Encoded marks");
+if (!visual.includes('"#FF4F00"') || !visual.includes('family: "Aeonik"')) failures.push("visual guidance must match the Encoded palette and display face");
 const favicon = readFileSync(resolve("public/favicon.svg"), "utf8");
-if (!favicon.includes('aria-label="Brand Context Protocol"')) failures.push("favicon must identify the protocol");
+if (!favicon.includes('<title>Encoded Brands</title>') || !favicon.includes('<path')) failures.push("favicon must carry the upright Encoded mark");
 if (failures.length > 0) {
   console.error(failures.join("\n"));
   process.exit(1);
