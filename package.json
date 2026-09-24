@@ -13,8 +13,9 @@
     "build": "astro build",
     "validate:bcp": "node scripts/validate-bcp.mjs",
     "validate:llms": "node scripts/validate-llms.mjs",
+    "check:schema-links": "node scripts/check-schema-links.mjs",
     "check:bcp:live": "node scripts/check-live-bcp.mjs",
-    "verify": "npm run validate:bcp && npm run validate:llms && npm run build",
+    "verify": "npm run validate:bcp && npm run validate:llms && npm run check:schema-links && npm run build",
     "preview": "astro preview",
     "astro": "astro"
   },
