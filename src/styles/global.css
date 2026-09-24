@@ -34,6 +34,9 @@ nav { border-bottom: 1px solid var(--rule); padding-bottom: 20px; margin-bottom:
 nav a { color: var(--ink-2); text-decoration: none; }
 nav a:hover { color: var(--accent); }
 .nav-links { display: flex; flex-wrap: wrap; gap: 24px; }
+.spec-get-started { display: inline-flex; flex: none; align-items: center; justify-content: center; min-height: 42px; margin-left: auto; padding: 0 16px; border-radius: 5px; background: #FF4F00; color: #1A1A1A; font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+nav .spec-get-started:hover, .current-spec nav .spec-get-started:hover { color: #1A1A1A; text-decoration: underline; text-underline-offset: 3px; }
+nav .spec-get-started:focus-visible { outline: 2px solid #1A1A1A; outline-offset: 3px; }
 
 /* Markdown Specifics */
 pre { 
@@ -95,6 +98,7 @@ body.current-spec {
 .current-spec nav a { color: var(--spec-ink); }
 .current-spec nav a:hover,
 .current-spec nav a[aria-current='page'] { color: var(--spec-orange); }
+.current-spec nav .spec-get-started { color: #1A1A1A; }
 .current-spec .nav-links { justify-content: flex-end; gap: clamp(14px, 2.4vw, 36px); }
 .current-spec .spec-wordmark {
   display: inline-flex;
@@ -202,7 +206,11 @@ body.current-spec {
   .spec-mobile-index a { display: block; padding: 9px 0; color: var(--spec-ink); font-size: 13px; text-decoration: none; }
 }
 @media (max-width: 700px) {
-  .current-spec nav { flex-direction: column; align-items: stretch; gap: 20px; padding-block: 20px; }
+  body:not(.current-spec) nav { position: relative; padding-top: 58px; }
+  body:not(.current-spec) nav .spec-get-started { position: absolute; top: 0; right: 0; }
+  .current-spec nav { flex-direction: column; align-items: stretch; gap: 20px; padding-block: 20px; position: relative; }
+  .current-spec .spec-get-started { position: absolute; top: 20px; right: 20px; }
+  .current-spec .spec-wordmark { padding-right: 120px; }
   .current-spec .nav-links { flex-wrap: wrap; justify-content: flex-start; gap: 8px 16px; white-space: normal; }
   .spec-banner { min-height: 190px; padding: 22px; border-radius: 12px; }
   .spec-banner-main { flex-direction: column; align-items: flex-start; gap: 8px; }
