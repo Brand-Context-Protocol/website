@@ -2,22 +2,27 @@
 import "../styles/global.css";
 const metadata = Astro.props.frontmatter ?? Astro.props;
 const { title = "Brand Context Protocol", description = "The open specification for machine-readable brand context." } = metadata;
-const canonicalPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replace(/\/$/, "");
+const canonicalPath = Astro.url.pathname === "/" ? "/" : `${Astro.url.pathname.replace(/\/$/, "")}/`;
 const canonical = new URL(canonicalPath, Astro.site ?? Astro.url.origin).href;
 const pageTitle = title === "Home" ? "Brand Context Protocol" : `${title} | Brand Context Protocol`;
 const noIndex = title === "Not Found";
+const publisher = { "@type": "Organization", "@id": "https://encodedbrands.ai/#organization", name: "Encoded Brands", legalName: "Estuary Group LLC", url: "https://encodedbrands.ai/" };
+const specVersion = Astro.url.pathname.match(/\/spec\/v([^/]+)/)?.[1];
 const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
         {
             "@type": "WebSite",
             "@id": "https://brandcontextprotocol.dev/#website",
+            publisher,
             name: "Brand Context Protocol",
             url: "https://brandcontextprotocol.dev/",
             description: "The open specification for machine-readable brand context.",
         },
         {
             "@type": Astro.url.pathname.startsWith("/spec/") ? "TechArticle" : "WebPage",
+            publisher,
+            ...(specVersion ? { version: specVersion, license: "https://creativecommons.org/licenses/by/4.0/" } : {}),
             name: pageTitle,
             description,
             url: canonical,
@@ -34,6 +39,13 @@ const structuredData = {
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {noIndex && <meta name="robots" content="noindex,follow" />}
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={specVersion ? "article" : "website"} />
+    <meta property="og:site_name" content="Brand Context Protocol" />
+    <meta property="og:image" content="https://encodedbrands.ai/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="text/markdown" href="https://brandcontextprotocol.dev/.well-known/brand.md" title="Brand Context Protocol BCP" />
@@ -45,18 +57,21 @@ const structuredData = {
 <body>
     <nav>
         <a href="/">[ Home ]</a>
-        <a href="/spec">[ Spec ]</a>
-        <a href="/schema">[ Schema ]</a>
-        <a href="/registry-verification">[ Verify Registry ]</a>
+        <a href="/spec/">[ Spec ]</a>
+        <a href="/schema/">[ Schema ]</a>
+        <a href="/registry-verification/">[ Verify Registry ]</a>
+        <a href="https://registry.brandcontextprotocol.dev/">[ Registry ]</a>
+        <a href="/spec/versions/">[ Versions ]</a>
         <a href="https://github.com/Brand-Context-Protocol/spec">[ GitHub ]</a>
     </nav>
     <main>
+        {specVersion && <p><a href="/spec/">Read the current specification</a> · <a href="/spec/versions/">All versions</a></p>}
         <slot />
     </main>
     <footer>
         &copy; 2026 &middot; BCP is an open standard maintained by Encoded Brands.
         <br/><br/>
-        <a href="https://github.com/Brand-Context-Protocol/spec" style="color:inherit">Source on GitHub</a> &middot; <a href="https://encodedbrands.ai" style="color:inherit">encodedbrands.ai</a> &middot; <a href="/registry-verification" style="color:inherit">Verify the Reference Registry</a> &middot; <a href="https://smithery.ai/servers/encodedbrands/bcp-registry" style="color:inherit">Smithery Record</a>
+        <a href="https://github.com/Brand-Context-Protocol/spec" style="color:inherit">Source on GitHub</a> &middot; <a href="https://encodedbrands.ai" style="color:inherit">encodedbrands.ai</a> &middot; <a href="/registry-verification/" style="color:inherit">Verify the Reference Registry</a> &middot; <a href="https://smithery.ai/servers/encodedbrands/bcp-registry" style="color:inherit">Smithery Record</a>
     </footer>
 </body>
 </html>

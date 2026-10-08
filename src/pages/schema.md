@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/Layout.astro
 title: JSON Schema
+description: JSON Schemas for validating Brand Context Protocol files and building conformant tools.
 ---
 
 # JSON Schema
