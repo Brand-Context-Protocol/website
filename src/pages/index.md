@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Layout.astro
 title: Home
-description: The Brand Context Protocol specification.
+description: Brand Context Protocol (BCP) is an open standard for publishing machine-readable brand identity, voice, and rules for AI agents.
 ---
 
 # Brand Context Protocol

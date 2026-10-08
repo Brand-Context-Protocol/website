@@ -9,13 +9,14 @@
     "predev": "node scripts/sync-spec.mjs",
     "dev": "astro dev",
     "start": "astro dev",
-    "prebuild": "node scripts/sync-spec.mjs",
+    "prebuild": "node scripts/sync-spec.mjs && node scripts/spec-discovery.mjs",
     "build": "astro build",
     "validate:bcp": "node scripts/validate-bcp.mjs",
     "check:bcp:live": "node scripts/check-live-bcp.mjs",
     "verify": "npm run validate:bcp && npm run build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "postbuild": "node scripts/build-sitemap.mjs"
   },
   "devDependencies": {
     "astro": "^6.4.4"
