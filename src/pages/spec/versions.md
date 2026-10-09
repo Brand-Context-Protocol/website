@@ -6,8 +6,9 @@ description: Current and historical versions of Brand Context Protocol.
 
 # Specification versions
 
-Current specification: [BCP v1.1.1](/spec/v1.1.1/).
+Current specification: [BCP v2.0.0](/spec/v2.0.0/).
 
+- [BCP v2.0.0](/spec/v2.0.0/)
 - [BCP v1.1.1](/spec/v1.1.1/)
 - [BCP v1.1.0](/spec/v1.1.0/)
 - [BCP v0.8](/spec/v0.8/)
