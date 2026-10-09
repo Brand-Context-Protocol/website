@@ -47,7 +47,7 @@ async function main() {
   const specPage =
     `---\nlayout: ../../layouts/Layout.astro\ntitle: BCP v${version} Specification\ndescription: Normative specification for Brand Context Protocol v${version}\n---\n\n` +
     `<a href="https://github.com/Brand-Context-Protocol/spec/issues/new" style="display:block; margin-bottom: 40px; font-family:var(--mono); font-size: 13px;">✎ Propose a change</a>\n\n` +
-    spec;
+    spec.replace(/\]\(spec\/migrations\/([^)]+)\.md\)/g, '](/spec/migrations/$1/)');
 
   const versionedPath = join(ROOT, `src/pages/spec/v${version}.md`);
   if (existsSync(versionedPath)) {
