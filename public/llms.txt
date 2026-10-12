@@ -8,7 +8,7 @@
 - [Current specification](https://brandcontextprotocol.dev/spec/v1.1.0): Normative BCP v1.1.0 specification.
 - [Protocol BCP](https://brandcontextprotocol.dev/.well-known/brand.md): Canonical machine-readable identity for the protocol itself.
 - [Schemas](https://brandcontextprotocol.dev/schema): Validation schema index.
-- [Reference Registry](https://registry.brandcontextprotocol.dev/): Public directory of Registry-hosted BCP records and current trust metadata.
+- [Reference Registry](https://registry.encodedbrands.ai/): Public directory of Registry-hosted BCP records and current trust metadata.
 - [Registry verification](https://brandcontextprotocol.dev/registry-verification): How to verify signed Registry bytes.
 - [Source](https://github.com/Brand-Context-Protocol/spec): Specification source, governance, licenses, and issues.
 
