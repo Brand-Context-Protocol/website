@@ -20,7 +20,7 @@ Neither proof warrants that every statement inside a BCP is true. Together they 
 1. Fetch the Registry file over HTTPS and preserve the decoded HTTP entity bytes exactly. Do not trim, normalize, parse and reserialize, or change line endings.
 2. Require `X-Content-Sha256`, `X-Signature`, and `X-Signature-Kid`.
 3. Compute SHA-256 over the exact bytes and compare the lowercase hexadecimal digest with `X-Content-Sha256`.
-4. Fetch the current kid-aware keyset from [registry.brandcontextprotocol.dev/.well-known/registry-public-keys](https://registry.brandcontextprotocol.dev/.well-known/registry-public-keys).
+4. Fetch the current kid-aware keyset from [registry.encodedbrands.ai/.well-known/registry-public-keys](https://registry.encodedbrands.ai/.well-known/registry-public-keys).
 5. Select the Ed25519 public key whose `kid` exactly matches `X-Signature-Kid`. Fail closed if that key is absent.
 6. Base64-decode the signature and public key, then verify the Ed25519 signature over the exact file bytes.
 7. Accept the file as Registry-authenticated only when both digest and signature checks pass.
@@ -40,7 +40,7 @@ Run it against any hosted file:
 ```bash
 curl -O https://brandcontextprotocol.dev/verify-publication.mjs
 node verify-publication.mjs \
-  https://registry.brandcontextprotocol.dev/example-brand/.well-known/brand.md
+  https://registry.encodedbrands.ai/encoded-f2fa3140/.well-known/brand.md
 ```
 
 A successful run returns a receipt containing the URL, key id, SHA-256 digest, byte count, and `verified: true`. A failed check exits nonzero.
