@@ -6,7 +6,7 @@ description: Public policy for Registry signing-key rotation and emergency revoc
 
 # Registry signing-key lifecycle
 
-Registry publications are signed with Ed25519 keys. Consumers discover currently trusted verification keys at [registry.brandcontextprotocol.dev/.well-known/registry-public-keys](https://registry.brandcontextprotocol.dev/.well-known/registry-public-keys).
+Registry publications are signed with Ed25519 keys. Consumers discover currently trusted verification keys at [registry.encodedbrands.ai/.well-known/registry-public-keys](https://registry.encodedbrands.ai/.well-known/registry-public-keys).
 
 Each signed file exposes `X-Signature`, `X-Signature-Kid`, and `X-Content-Sha256`. Consumers must select the public key whose `kid` exactly matches the response header and fail closed when that key is absent, revoked, or cannot verify the response bytes.
 
