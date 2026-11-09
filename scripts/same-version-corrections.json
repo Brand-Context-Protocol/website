@@ -1,0 +1,10 @@
+{
+  "corrections": [
+    {
+      "version": "2.0.0",
+      "specSha256": "bfa5aacd40776dfae46100b13b05e3f1eb224b1df765c5e34df6b0ca7585e2bc",
+      "specCommit": "919f48ebfd3224e1c9f726f3256676e55198f17c",
+      "summary": "Editorial same-version correction merged in Brand-Context-Protocol/spec#35. Records that GARM was discontinued, makes the derived suitability tiers optional, permits voice/tone projection only as direct copies of structured voice.md values, and adds an AdCP note checked against schema 3.2.9. RFC 0019 is a separate draft in the spec repository and adds no normative requirement. The version stays 2.0.0."
+    }
+  ]
+}

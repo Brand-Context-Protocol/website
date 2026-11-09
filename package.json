@@ -13,7 +13,7 @@
     "build": "astro build",
     "validate:bcp": "node scripts/validate-bcp.mjs",
     "check:bcp:live": "node scripts/check-live-bcp.mjs",
-    "verify": "npm run validate:bcp && npm run build",
+    "verify": "node --test scripts/sync-spec.test.mjs && npm run validate:bcp && npm run build",
     "preview": "astro preview",
     "astro": "astro",
     "postbuild": "node scripts/build-sitemap.mjs"
