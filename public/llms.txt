@@ -5,7 +5,7 @@
 ## Start here
 
 - [Protocol home](https://brandcontextprotocol.dev/): Plain-language overview.
-- [Current specification](https://brandcontextprotocol.dev/spec/v1.1.0): Normative BCP v1.1.0 specification.
+- [Current specification](https://brandcontextprotocol.dev/spec/v2.0.1/): Normative BCP v2.0.1 specification.
 - [Protocol BCP](https://brandcontextprotocol.dev/.well-known/brand.md): Canonical machine-readable identity for the protocol itself.
 - [Schemas](https://brandcontextprotocol.dev/schema): Validation schema index.
 - [Reference Registry](https://registry.encodedbrands.ai/): Public directory of Registry-hosted BCP records and current trust metadata.
